@@ -1,9 +1,22 @@
-
 // Fonts
-@import url("https://fonts.googleapis.com/css?family=Raleway:300,400,600");
+@import url('https://fonts.googleapis.com/css?family=Zeyada');
 
-// Variables
-@import "variables";
-
-// Bootstrap
+// Styles
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
+@import "variables";
+@import "mixins";
+
+// Pages
+
+
+// Components
+@import "intro";
+
+// Mixin helper call
+.padding {
+  @include generate-spacing(padding);
+}
+
+.margin {
+  @include generate-spacing(margin);
+}
