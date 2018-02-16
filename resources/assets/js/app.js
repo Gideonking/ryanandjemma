@@ -1,12 +1,43 @@
 require('./bootstrap');
 
 $(function () {
+	var lastElementClicked;
 	Barba.Pjax.start();
-	
-	Barba.Dispatcher.on('linkClicked', function (el) {
-		lastElementClicked = el;
+
+	Barba.Dispatcher.on('linkClicked', function (e) {
+		lastElementClicked = e;
 	});
-	
+
+	var gsaptest = Barba.BaseTransition.extend({
+		start: function () {
+			Promise.all([this.newContainerLoading, this.in()]).then(this.out.bind(this))
+		},
+		in: function () {
+			var t = Barba.Utils.deferred(),
+				i = new TimelineMax;
+			
+			i.to("body", 5, {
+				backgroundColor: '#000000'
+			});
+			
+			return i.eventCallback("onComplete", function () {
+				t.resolve();
+			}), t.promise;
+		},
+		out: function () {
+			var _this = this,
+				i = ($(this.newContainer), new TimelineMax);
+			
+			i.to("body", 5, {
+				backgroundColor: 'red'
+			});
+			
+			i.eventCallback("onComplete", function () {
+				_this.done();
+			});
+		}
+	});
+
 	var FadeTransition = Barba.BaseTransition.extend({
 		start: function () {
 			Promise
@@ -37,7 +68,9 @@ $(function () {
 		}
 	});
 
-//	Barba.Pjax.getTransition = function () {
-//		return FadeTransition;
-//	};
+	Barba.Pjax.getTransition = function () {
+		transition = FadeTransition;
+		if ($(lastElementClicked).hasClass('home')) transition = gsaptest;
+		return transition;
+	};
 });
