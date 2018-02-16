@@ -5,14 +5,16 @@ $(function () {
 	Barba.Pjax.start();
 
 	Barba.Dispatcher.on('linkClicked', function (e) {
-		lastElementClicked = e;
+		clickedElem = e;
 	});
 
-	var gsaptest = Barba.BaseTransition.extend({
+	var GsapTransition = Barba.BaseTransition.extend({
 		start: function () {
-			Promise.all([this.newContainerLoading, this.in()]).then(this.out.bind(this))
+			Promise
+				.all([this.newContainerLoading, this.out()])
+				.then(this.in.bind(this));
 		},
-		in: function () {
+		out: function () {
 			var t = Barba.Utils.deferred(),
 				i = new TimelineMax;
 			
@@ -24,7 +26,7 @@ $(function () {
 				t.resolve();
 			}), t.promise;
 		},
-		out: function () {
+		in: function () {
 			var _this = this,
 				i = ($(this.newContainer), new TimelineMax);
 			
@@ -69,8 +71,8 @@ $(function () {
 	});
 
 	Barba.Pjax.getTransition = function () {
-		transition = FadeTransition;
-		if ($(lastElementClicked).hasClass('home')) transition = gsaptest;
-		return transition;
+		trans = FadeTransition;
+		if ($(clickedElem).hasClass('home')) trans = GsapTransition;
+		return trans;
 	};
 });
