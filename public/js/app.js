@@ -746,7 +746,7 @@ module.exports = Cancel;
 /***/ (function(module, exports, __webpack_require__) {
 
 __webpack_require__(8);
-module.exports = __webpack_require__(35);
+module.exports = __webpack_require__(36);
 
 
 /***/ }),
@@ -871,7 +871,7 @@ if (token) {
   console.error('CSRF token not found: https://laravel.com/docs/csrf#csrf-x-csrf-token');
 }
 
-window.Barba = __webpack_require__(46);
+window.Barba = __webpack_require__(35);
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening
@@ -31873,22 +31873,6 @@ module.exports = function spread(callback) {
 
 /***/ }),
 /* 35 */
-/***/ (function(module, exports) {
-
-// removed by extract-text-webpack-plugin
-
-/***/ }),
-/* 36 */,
-/* 37 */,
-/* 38 */,
-/* 39 */,
-/* 40 */,
-/* 41 */,
-/* 42 */,
-/* 43 */,
-/* 44 */,
-/* 45 */,
-/* 46 */
 /***/ (function(module, exports, __webpack_require__) {
 
 (function webpackUniversalModuleDefinition(root, factory) {
@@ -33601,6 +33585,12 @@ return /******/ (function(modules) { // webpackBootstrap
 });
 ;
 //# sourceMappingURL=barba.js.map
+
+/***/ }),
+/* 36 */
+/***/ (function(module, exports) {
+
+// removed by extract-text-webpack-plugin
 
 /***/ })
 /******/ ]);
