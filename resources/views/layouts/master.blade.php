@@ -6,13 +6,16 @@
 </head>
 
 <body>
-	@include('layouts.nav')
-	<div id="barba-wrapper">
-		<div class="barba-container">
-			@yield('content')
+	<canvas class="fireworks"></canvas>
+	<div class="playground">
+		@include('layouts.nav')
+		<div id="barba-wrapper">
+			<div class="barba-container">
+				@yield('content')
+			</div>
 		</div>
+		@include('layouts.footer')
 	</div>
-	@include('layouts.footer')
 </body>
 
 </html>
