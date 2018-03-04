@@ -203,4 +203,18 @@ $(function () {
 	
 	setCanvasSize();
 	window.addEventListener('resize', setCanvasSize, false);
+	
+	/* TILT */
+	var tilt = $('.js-tilt').tilt({
+		maxTilt:        6,
+		perspective:    1000,
+		easing:         "cubic-bezier(.03,.98,.52,.99)",
+		scale:          1,
+		speed:          100,
+		transition:     true,
+		disableAxis:    null,
+		reset:          true,
+		glare:          false,
+		maxGlare:       1
+	});
 });

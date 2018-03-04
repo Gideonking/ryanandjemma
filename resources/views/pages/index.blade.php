@@ -2,8 +2,14 @@
 
 @section('content')
 
-<a href="1">Test 1</a>
-<a href="2">Test 2</a>
-<a href="3">Test 3</a>
+<div class="tilt__container">
+	<div class="tilt__bg"></div>
+</div>
+
+<div class="tilt__container">
+	<div class="js-tilt tilt__frame--intro">
+		<a class="tilt__logo" href="#">JR</a>
+	</div>
+</div>
 
 @endsection

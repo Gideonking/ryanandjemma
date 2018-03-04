@@ -1,5 +1,5 @@
 // Fonts
-@import url('https://fonts.googleapis.com/css?family=Zeyada');
+@import url('https://fonts.googleapis.com/css?family=Kristi');
 
 // Styles
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
@@ -11,6 +11,7 @@
 
 // Components
 @import "global";
+@import "tilt";
 @import "intro";
 
 // Mixin helper call
