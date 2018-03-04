@@ -78,15 +78,15 @@ $(function () {
 	};
 
 	/* Anime Fireworks */
-	window.human = false;
-
-	var canvasEl = document.querySelector('.fireworks');
-	var ctx = canvasEl.getContext('2d');
-	var numberOfParticules = 30;
-	var pointerX = 0;
-	var pointerY = 0;
-	var tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown';
-	var colors = ['#FF1461', '#18FF92', '#5A87FF', '#FBF38C'];
+	var canvasEl = document.querySelector('.fireworks'),
+		ctx = canvasEl.getContext('2d'),
+		numberOfParticules = 30,
+		pointerX = 0,
+		pointerY = 0,
+		tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown',
+		colors = ['#F69AAF', '#FFC6C5', '#FFA09B', '#F0AACB'],
+		centerX = window.innerWidth / 2,
+		centerY = window.innerHeight / 2;
 
 	function setCanvasSize() {
 		canvasEl.width = window.innerWidth * 2;
@@ -131,7 +131,7 @@ $(function () {
 		var p = {};
 		p.x = x;
 		p.y = y;
-		p.color = '#FFF';
+		p.color = '#FFC6C5';
 		p.radius = 0.1;
 		p.alpha = .5;
 		p.lineWidth = 6;
@@ -167,7 +167,7 @@ $(function () {
 				y: function (p) {
 					return p.endPos.y;
 				},
-				radius: 0.1,
+				radius: 0.2,
 				duration: anime.random(1200, 1800),
 				easing: 'easeOutExpo',
 				update: renderParticule
@@ -196,14 +196,10 @@ $(function () {
 	});
 
 	document.addEventListener(tap, function (e) {
-		window.human = true;
 		render.play();
 		updateCoords(e);
 		animateParticules(pointerX, pointerY);
 	}, false);
-
-	var centerX = window.innerWidth / 2;
-	var centerY = window.innerHeight / 2;
 	
 	setCanvasSize();
 	window.addEventListener('resize', setCanvasSize, false);
