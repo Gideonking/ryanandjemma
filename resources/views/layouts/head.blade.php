@@ -4,7 +4,7 @@
 <meta name="keywords" content="">
 <meta name="author" content="Ryan Mingyu Choi">
 <meta name="csrf-token" content="{{ csrf_token() }}">
-<link rel="icon" href="/images/favicon.ico">
+<link rel="icon" href="/img/favicon.ico">
 
 <title>Jemma &amp; Ryan</title>
 

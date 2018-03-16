@@ -1,5 +1,6 @@
 // Fonts
 @import url('https://fonts.googleapis.com/css?family=Heebo:800');
+@import url('https://fonts.googleapis.com/css?family=Mr+De+Haviland');
 
 // Styles
 @import "~bootstrap-sass/assets/stylesheets/bootstrap";
@@ -11,6 +12,7 @@
 
 // Components
 @import "global";
+@import "nav";
 @import "intro";
 
 // Mixin helper call

@@ -38,6 +38,7 @@ if (token) {
 }
 
 window.Barba = require('barba.js');
+window.Parallax = require('parallax-js');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

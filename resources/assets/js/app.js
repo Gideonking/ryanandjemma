@@ -77,13 +77,15 @@ $(function () {
 		return trans;
 	};
 	
-	var Canvas = document.getElementById('canvas');
+	/* Bubble Canvas */
+	var Canvas = document.getElementById('bubble-canvas');
 	var ctx = Canvas.getContext('2d');
 
 	var resize = function() {
 		Canvas.width = Canvas.clientWidth;
 		Canvas.height = Canvas.clientHeight;
 	};
+	
 	window.addEventListener('resize', resize);
 	resize();
 
@@ -126,4 +128,11 @@ $(function () {
 		for (var e in elements)
 			elements[e].draw(ctx, time);
 	}, 10);
+	
+	/* Parallax */
+	var scene = $('.js-parallax--initial')[0];
+	var parallaxInstance = new Parallax(scene);
+	
+	var scene2 = $('.js-parallax--info')[0];
+	var parallaxInstance = new Parallax(scene2);
 });
