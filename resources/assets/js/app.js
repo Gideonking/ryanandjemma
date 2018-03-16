@@ -104,7 +104,7 @@ $(function () {
 
 				ctx.beginPath();
 				ctx.arc(this.x + + Math.sin((50 + x + (t / 10)) / 100) * 3, this.y + + Math.sin((45 + x + (t / 10)) / 100) * 4, this.r, 0, 2 * Math.PI, false);
-				ctx.fillStyle = "#FDA3A6";
+				ctx.fillStyle = "#fda3a6";
 				ctx.fill();
 			}
 		}
