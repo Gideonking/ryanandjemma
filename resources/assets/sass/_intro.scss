@@ -1,0 +1,25 @@
+#canvas {
+	position: absolute;
+	top: 0;
+	left: 0;
+	width: 100%;
+	height: 100vh;
+	background: $pink-bg;
+}
+
+.intro {
+	&__container {
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		height: 100vh;
+	}
+	&__initials {
+		
+	}
+	&__text-container {
+		h1 {
+			font-size: 4em;
+		}
+	}
+}

@@ -38,7 +38,6 @@ if (token) {
 }
 
 window.Barba = require('barba.js');
-window.tilt = require('tilt.js');
 
 /**
  * Echo exposes an expressive API for subscribing to channels and listening

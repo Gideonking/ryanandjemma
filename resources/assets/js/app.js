@@ -76,145 +76,54 @@ $(function () {
 		if ($(clickedElem).hasClass('home')) trans = GsapTransition;
 		return trans;
 	};
+	
+	var Canvas = document.getElementById('canvas');
+	var ctx = Canvas.getContext('2d');
 
-	/* Anime Fireworks */
-	var canvasEl = document.querySelector('.fireworks'),
-		ctx = canvasEl.getContext('2d'),
-		numberOfParticules = 30,
-		pointerX = 0,
-		pointerY = 0,
-		tap = ('ontouchstart' in window || navigator.msMaxTouchPoints) ? 'touchstart' : 'mousedown',
-		colors = ['#F69AAF', '#FFC6C5', '#FFA09B', '#F0AACB'],
-		centerX = window.innerWidth / 2,
-		centerY = window.innerHeight / 2;
+	var resize = function() {
+		Canvas.width = Canvas.clientWidth;
+		Canvas.height = Canvas.clientHeight;
+	};
+	window.addEventListener('resize', resize);
+	resize();
 
-	function setCanvasSize() {
-		canvasEl.width = window.innerWidth * 2;
-		canvasEl.height = window.innerHeight * 2;
-		canvasEl.style.width = window.innerWidth + 'px';
-		canvasEl.style.height = window.innerHeight + 'px';
-		canvasEl.getContext('2d').scale(2, 2);
-	}
+	var elements = [];
+	var presets = {};
 
-	function updateCoords(e) {
-		pointerX = e.clientX || e.touches[0].clientX;
-		pointerY = e.clientY || e.touches[0].clientY;
-	}
-
-	function setParticuleDirection(p) {
-		var angle = anime.random(0, 360) * Math.PI / 180;
-		var value = anime.random(50, 180);
-		var radius = [-1, 1][anime.random(0, 1)] * value;
+	presets.r = function (x, y, s, dx, dy) {
 		return {
-			x: p.x + radius * Math.cos(angle),
-			y: p.y + radius * Math.sin(angle)
+			x: x,
+			y: y,
+			r: 12 * s,
+			w: 5 * s,
+			dx: dx,
+			dy: dy,
+			draw: function(ctx, t) {
+				this.x += this.dx;
+				this.y += this.dy;
+
+				ctx.beginPath();
+				ctx.arc(this.x + + Math.sin((50 + x + (t / 10)) / 100) * 3, this.y + + Math.sin((45 + x + (t / 10)) / 100) * 4, this.r, 0, 2 * Math.PI, false);
+				ctx.fillStyle = "#FDA3A6";
+				ctx.fill();
+			}
+		}
+	};
+
+	for(var x = 0; x < Canvas.width; x++) {
+		for(var y = 0; y < Canvas.height; y++) {
+			if(Math.round(Math.random() * 8000) == 1) {
+				var s = ((Math.random() * 5) + 1) / 10;
+				elements.push(presets.r(x, y, s, 0, 0));
+			}
 		}
 	}
 
-	function createParticule(x, y) {
-		var p = {};
-		p.x = x;
-		p.y = y;
-		p.color = colors[anime.random(0, colors.length - 1)];
-		p.radius = anime.random(16, 32);
-		p.endPos = setParticuleDirection(p);
-		p.draw = function () {
-			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-			ctx.fillStyle = p.color;
-			ctx.fill();
-		}
-		return p;
-	}
+	setInterval(function() {
+		ctx.clearRect(0, 0, Canvas.width, Canvas.height);
 
-	function createCircle(x, y) {
-		var p = {};
-		p.x = x;
-		p.y = y;
-		p.color = '#FFC6C5';
-		p.radius = 0.1;
-		p.alpha = .5;
-		p.lineWidth = 6;
-		p.draw = function () {
-			ctx.globalAlpha = p.alpha;
-			ctx.beginPath();
-			ctx.arc(p.x, p.y, p.radius, 0, 2 * Math.PI, true);
-			ctx.lineWidth = p.lineWidth;
-			ctx.strokeStyle = p.color;
-			ctx.stroke();
-			ctx.globalAlpha = 1;
-		}
-		return p;
-	}
-
-	function renderParticule(anim) {
-		for (var i = 0; i < anim.animatables.length; i++) {
-			anim.animatables[i].target.draw();
-		}
-	}
-
-	function animateParticules(x, y) {
-		var circle = createCircle(x, y);
-		var particules = [];
-		for (var i = 0; i < numberOfParticules; i++) {
-			particules.push(createParticule(x, y));
-		}
-		anime.timeline().add({
-				targets: particules,
-				x: function (p) {
-					return p.endPos.x;
-				},
-				y: function (p) {
-					return p.endPos.y;
-				},
-				radius: 0.2,
-				duration: anime.random(1200, 1800),
-				easing: 'easeOutExpo',
-				update: renderParticule
-			})
-			.add({
-				targets: circle,
-				radius: anime.random(80, 160),
-				lineWidth: 0,
-				alpha: {
-					value: 0,
-					easing: 'linear',
-					duration: anime.random(600, 800),
-				},
-				duration: anime.random(1200, 1800),
-				easing: 'easeOutExpo',
-				update: renderParticule,
-				offset: 0
-			});
-	}
-
-	var render = anime({
-		duration: Infinity,
-		update: function () {
-			ctx.clearRect(0, 0, canvasEl.width, canvasEl.height);
-		}
-	});
-
-	document.addEventListener(tap, function (e) {
-		render.play();
-		updateCoords(e);
-		animateParticules(pointerX, pointerY);
-	}, false);
-	
-	setCanvasSize();
-	window.addEventListener('resize', setCanvasSize, false);
-	
-	/* TILT */
-	var tilt = $('.js-tilt').tilt({
-		maxTilt:        6,
-		perspective:    1000,
-		easing:         "cubic-bezier(.03,.98,.52,.99)",
-		scale:          1,
-		speed:          100,
-		transition:     true,
-		disableAxis:    null,
-		reset:          true,
-		glare:          false,
-		maxGlare:       1
-	});
+		var time = new Date().getTime();
+		for (var e in elements)
+			elements[e].draw(ctx, time);
+	}, 10);
 });

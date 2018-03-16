@@ -6,7 +6,7 @@
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="/images/favicon.ico">
 
-<title>Ryan &amp; Jemma</title>
+<title>Jemma &amp; Ryan</title>
 
 <link rel="stylesheet" href="/css/app.css">
 

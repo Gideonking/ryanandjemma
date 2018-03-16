@@ -7,16 +7,31 @@ a {
 	}
 }
 
-.fireworks {
-	position: fixed;
-	top: 0;
-	left: 0;
-	width: 100%;
-	height: 100%;
-	z-index: 0;
+img {
+	display: block;
+	max-width: 100%;
 }
 
-.playground {
+.hr {
+	display: block;
+	height: 2px;
+	width: 100%;
+	background-color: #ffffff;
+}
+
+.centering {
+	display: flex;
+	&--vert {
+		align-items: center;
+	}
+	&--hori {
+		
+	}
+}
+
+.full-container {
 	position: relative;
-	z-index: 1;
+	width: 100vw;
+	height: 100vh;
+	overflow: hidden;
 }
