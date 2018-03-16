@@ -8464,6 +8464,7 @@ img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+  min-height: 80px;
 }
 
 .nav__icon {
@@ -8492,6 +8493,28 @@ img {
 .nav--right {
   position: absolute;
   right: 0;
+}
+
+@media only screen and (max-width: 767px) {
+  .nav__icon {
+    display: none;
+  }
+
+  .nav__list {
+    font-size: 1em;
+    margin: 0 10px;
+  }
+
+  .nav--right {
+    position: absolute;
+    right: 0;
+    left: 0;
+    display: -webkit-box;
+    display: -ms-flexbox;
+    display: flex;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+  }
 }
 
 .intro__container {
@@ -8550,7 +8573,7 @@ img {
   }
 
   .intro__initials {
-    width: 85%;
+    width: 75%;
     margin: 0 auto 30px;
   }
 
