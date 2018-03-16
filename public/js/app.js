@@ -33653,7 +33653,7 @@ return /******/ (function(modules) { // webpackBootstrap
 /* 37 */
 /***/ (function(module, exports) {
 
-throw new Error("Module build failed: ModuleBuildError: Module build failed: \n@media screen and (max-width: 768px) {\n                                     ^\n      Invalid CSS after \"...width: 768px) {\": expected \"}\", was \"#.bubble-canvas {\"\n      in /Users/ryanchoi/Code/ryanandjemma/resources/assets/sass/_global.scss (line 59, column 39)\n    at runLoaders (/Users/ryanchoi/Code/ryanandjemma/node_modules/webpack/lib/NormalModule.js:195:19)\n    at /Users/ryanchoi/Code/ryanandjemma/node_modules/loader-runner/lib/LoaderRunner.js:364:11\n    at /Users/ryanchoi/Code/ryanandjemma/node_modules/loader-runner/lib/LoaderRunner.js:230:18\n    at context.callback (/Users/ryanchoi/Code/ryanandjemma/node_modules/loader-runner/lib/LoaderRunner.js:111:13)\n    at Object.asyncSassJobQueue.push [as callback] (/Users/ryanchoi/Code/ryanandjemma/node_modules/sass-loader/lib/loader.js:55:13)\n    at Object.<anonymous> (/Users/ryanchoi/Code/ryanandjemma/node_modules/async/dist/async.js:2257:31)\n    at Object.callback (/Users/ryanchoi/Code/ryanandjemma/node_modules/async/dist/async.js:958:16)\n    at options.error (/Users/ryanchoi/Code/ryanandjemma/node_modules/node-sass/lib/index.js:294:32)");
+// removed by extract-text-webpack-plugin
 
 /***/ }),
 /* 38 */,

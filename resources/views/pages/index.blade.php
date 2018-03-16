@@ -3,16 +3,16 @@
 @section('content')
 
 <div class="bubble-container">
-	<canvas id="bubble-canvas"></canvas>
+	<canvas id="bubble-canvas" class="bubble-canvas"></canvas>
 </div>
 
 <div class="full-container">
-	<div class="container intro__container">
-		<div class="row centering centering--vert">
-			<div class="js-parallax--initial col-md-6">
+	<div class="container intro__container valign-on--mobile">
+		<div class="row valign valign-off--mobile">
+			<div class="js-parallax--initial col-md-6 intro__container--initials">
 				<img class="intro__initials" src="/img/JR.png" alt="" data-depth="0.2">
 			</div>
-			<div class="js-parallax--info col-md-6">
+			<div class="js-parallax--info col-md-6 intro__container--info">
 				<div data-depth="0.4">
 					<h2 class="intro__text-name">JEMMA</h2>
 					<img class="intro__text-icon" src="/img/wed-icon.svg" alt="">

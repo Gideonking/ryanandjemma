@@ -19,13 +19,33 @@ img {
 	background-color: #ffffff;
 }
 
-.centering {
+.valign {
 	display: flex;
-	&--vert {
-		align-items: center;
+	align-items: center;
+	&-off {
+		@media only screen and (max-width: 768px) {
+			&--tablet {
+				display: block !important;
+			}
+		}
+		@media only screen and (max-width: 480px) {
+			&--mobile {
+				display: block !important;
+			}
+		}
 	}
-	&--hori {
-		
+	&-on {
+		display: block;
+		@media only screen and (max-width: 768px) {
+			&--tablet {
+				display: flex !important;
+			}
+		}
+		@media only screen and (max-width: 481px) {
+			&--mobile {
+				display: flex !important;
+			}
+		}
 	}
 }
 
@@ -56,8 +76,8 @@ img {
 	background: $pink-bg;
 }
 
-@media screen and (max-width: 768px) {
-	#.bubble-canvas {
+@media only screen and (max-width: 767px) {
+	.bubble-canvas {
 		min-width: 0;
 		min-height: 0;
 	}

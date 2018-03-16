@@ -3,7 +3,7 @@
 		display: flex;
 		justify-content: center;
 		align-items: center;
-		height: 100vh;
+		height: 100%;
 		& > * {
 			line-height: 1;
 		}
@@ -31,5 +31,25 @@
 		margin: 15px 0 0;
 		color: #ffffff;
 		font-family: 'Mr De Haviland', cursive;
+	}
+}
+
+@media only screen and (max-width: 767px) {
+	.intro {
+		&__container {
+			display: block;
+			&--info {
+				text-align: center;
+				font-size: 10px;
+			}
+		}
+		&__initials {
+			width: 85%;
+			margin: 0 auto 30px;
+		}
+		&__text-name,
+		&__text-guest {
+			padding-left: 0;
+		}
 	}
 }

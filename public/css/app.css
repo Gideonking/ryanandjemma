@@ -8372,16 +8372,45 @@ img {
   background-color: #ffffff;
 }
 
-.centering {
+.valign {
   display: -webkit-box;
   display: -ms-flexbox;
   display: flex;
-}
-
-.centering--vert {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
+}
+
+@media only screen and (max-width: 768px) {
+  .valign-off--tablet {
+    display: block !important;
+  }
+}
+
+@media only screen and (max-width: 480px) {
+  .valign-off--mobile {
+    display: block !important;
+  }
+}
+
+.valign-on {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
+  .valign-on--tablet {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
+}
+
+@media only screen and (max-width: 481px) {
+  .valign-on--mobile {
+    display: -webkit-box !important;
+    display: -ms-flexbox !important;
+    display: flex !important;
+  }
 }
 
 .full-container {
@@ -8400,13 +8429,22 @@ img {
   overflow: hidden;
 }
 
-#bubble-canvas {
+.bubble-canvas {
   position: absolute;
   top: 0;
   left: 0;
   width: 200%;
   height: 200vh;
+  min-width: 1920px;
+  min-height: 1000px;
   background: #f57576;
+}
+
+@media only screen and (max-width: 767px) {
+  .bubble-canvas {
+    min-width: 0;
+    min-height: 0;
+  }
 }
 
 .navbar {
@@ -8466,7 +8504,7 @@ img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  height: 100vh;
+  height: 100%;
 }
 
 .intro__container > * {
@@ -8499,6 +8537,27 @@ img {
   margin: 15px 0 0;
   color: #ffffff;
   font-family: 'Mr De Haviland', cursive;
+}
+
+@media only screen and (max-width: 767px) {
+  .intro__container {
+    display: block;
+  }
+
+  .intro__container--info {
+    text-align: center;
+    font-size: 10px;
+  }
+
+  .intro__initials {
+    width: 85%;
+    margin: 0 auto 30px;
+  }
+
+  .intro__text-name,
+  .intro__text-guest {
+    padding-left: 0;
+  }
 }
 
 .padding-top-none {
