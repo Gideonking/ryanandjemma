@@ -1,6 +1,7 @@
 <?php
 
-Route::get('/', 'WelcomeController@index')->name('home');
-Route::get('/1', 'WelcomeController@test1');
-Route::get('/2', 'WelcomeController@test2');
-Route::get('/3', 'WelcomeController@test3');
+Route::get('/', 'PageController@index')->name('home');
+Route::get('/story', 'PageController@story');
+Route::get('/info', 'PageController@info');
+Route::get('/rsvp', 'PageController@rsvp');
+Route::get('/gift', 'PageController@gift');

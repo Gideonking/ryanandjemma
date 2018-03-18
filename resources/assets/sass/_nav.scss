@@ -13,7 +13,31 @@
 	align-items: center;
 	min-height: 80px;
 	&__icon {
-		width: 80px;
+		&-wrapper {
+			display: flex;
+			justify-content: center;
+			align-items: center;
+			flex-direction: column;
+			width: 80px;
+			height: 80px;
+			background-color: #333333;
+			&:hover {
+				.nav__brand {
+					opacity: 1;
+					height: 8px;
+				}
+			}
+		}
+		width: 50px;
+	}
+	&__brand {
+		font-weight: 100;
+		color: #ffffff;
+		font-size: 8px;
+		margin-top: 5px;
+		opacity: 0;
+		height: 0;
+		transition: opacity 0.5s, height 0.5s;
 	}
 	&__list {
 		padding: 15px;
@@ -37,7 +61,7 @@
 
 @media only screen and (max-width: 767px) {
 	.nav {
-		&__icon {
+		&__icon-wrapper {
 			display: none;
 		}
 		&__list {

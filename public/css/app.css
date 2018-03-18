@@ -8365,6 +8365,28 @@ img {
   max-width: 100%;
 }
 
+.start-hide {
+  opacity: 0;
+}
+
+.wave-container {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  overflow: hidden;
+}
+
+.wave-container:after {
+  content: '';
+  display: block;
+  width: 100%;
+  height: 50vh;
+  margin-top: -5px;
+  background-color: #f57576;
+}
+
 .hr {
   display: block;
   height: 2px;
@@ -8468,7 +8490,42 @@ img {
 }
 
 .nav__icon {
+  width: 50px;
+}
+
+.nav__icon-wrapper {
+  display: -webkit-box;
+  display: -ms-flexbox;
+  display: flex;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-orient: vertical;
+  -webkit-box-direction: normal;
+      -ms-flex-direction: column;
+          flex-direction: column;
   width: 80px;
+  height: 80px;
+  background-color: #333333;
+}
+
+.nav__icon-wrapper:hover .nav__brand {
+  opacity: 1;
+  height: 8px;
+}
+
+.nav__brand {
+  font-weight: 100;
+  color: #ffffff;
+  font-size: 8px;
+  margin-top: 5px;
+  opacity: 0;
+  height: 0;
+  -webkit-transition: opacity 0.5s, height 0.5s;
+  transition: opacity 0.5s, height 0.5s;
 }
 
 .nav__list {
@@ -8496,7 +8553,7 @@ img {
 }
 
 @media only screen and (max-width: 767px) {
-  .nav__icon {
+  .nav__icon-wrapper {
     display: none;
   }
 

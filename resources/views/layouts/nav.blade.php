@@ -1,22 +1,18 @@
-<!--
-<a href="/">Home</a>
-<a href="1">Test 1</a>
-<a href="2">Test 2</a>
-<a href="3">Test 3</a>
--->
 <header class="navbar">
 	<div class="container">
 		<div class="row">
 			<div class="nav col-md-12">
 				<div class="nav--left">
-					<a href="/">
-						<img class="nav__icon" src="/img/JR_home.jpg" alt="">
+					<a href="/" class="nav__icon-wrapper barba--homepage">
+						<img class="nav__icon" src="/img/JR_home.png" alt="">
+						<span class="nav__brand">JEMMA &amp; RYAN</span>
 					</a>
 				</div>
 				<div class="nav--right">
-					<a class="nav__list" href="1">RSVP</a>
-					<a class="nav__list" href="2">GIFT</a>
-					<a class="nav__list" href="3">INFO</a>
+					<a class="nav__list barba--story" href="story">STORY</a>
+					<a class="nav__list barba--info" href="info">INFO</a>
+					<a class="nav__list barba--rsvp" href="rsvp">RSVP</a>
+					<a class="nav__list barba--gift" href="gift">GIFT</a>
 				</div>
 			</div>
 		</div>
