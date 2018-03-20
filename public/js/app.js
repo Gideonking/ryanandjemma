@@ -807,7 +807,7 @@ $(function () {
 
 			tl.to(".start-hide", 0.5, {
 				opacity: 1
-			}).fromTo(".wave", 2.5, {
+			}).fromTo(".wave", 1.5, {
 				css: {
 					paddingTop: '100vh'
 				}
@@ -823,19 +823,21 @@ $(function () {
 					paddingTop: '100vh'
 				}
 			}).from(".navbar", 0.5, {
-				top: -50,
 				opacity: 0
 			});
 
-			tl2.from(".intro__container--initials", 2, {
-				bottom: -30,
-				opacity: 0
-			}, 2);
+			tl2.from(".intro__container--initials", 1.25, {
+				ease: Power4.easeOut,
+				css: {
+					right: '-100%',
+					opacity: 0
+				}
+			}, 2.5);
 
-			tl3.from(".intro__container--info", 0.5, {
-				right: -20,
+			tl3.from(".intro__container--info", 1, {
+				bottom: -40,
 				opacity: 0
-			}, 3.7);
+			}, 3);
 		},
 		onEnterCompleted: function onEnterCompleted() {
 			barbaHomepageOnly();
@@ -910,6 +912,79 @@ $(function () {
 
 	Homepage.init();
 	Barba.Pjax.start();
+
+	/* Prevent BarbaJS refresh when same page redirection */
+	var links = $('a[href]');
+	var cbk = function cbk(e) {
+		if (e.currentTarget.href === window.location.href) {
+			e.preventDefault();
+			e.stopPropagation();
+		}
+	};
+
+	for (var i = 0; i < links.length; i++) {
+		links[i].addEventListener('click', cbk);
+	}
+
+	/* Mediacheck */
+	mediaCheck({
+		media: '(max-width: 420px)',
+		entry: function entry() {
+			console.log('starting 420');
+		},
+		exit: function exit() {
+			console.log('leaving 420');
+		},
+		both: function both() {
+			console.log('changing state');
+		}
+	});
+
+	/* General */
+	$('body').on('click', '.nav__toggle', function () {
+		$('html, body').toggleClass('mobile-nav-open');
+		if ($('html, body').hasClass('mobile-nav-open')) {
+			var tl = new TimelineMax();
+
+			tl.to(".container--zoomout", 0.3, {
+				css: {
+					transform: 'scale(0.85)',
+					opacity: 0.3,
+					left: '50vw'
+				}
+			}).to(".nav--right", 0, {
+				css: {
+					display: 'block'
+				}
+			}).to(".nav--right", 0.3, {
+				opacity: 1,
+				left: 0
+			}, 0.2);
+		} else {
+			var tl2 = new TimelineMax(),
+			    tl3 = new TimelineMax();
+
+			tl2.fromTo(".nav--right", 0.3, {
+				opacity: 1,
+				left: 0
+			}, {
+				opacity: 0,
+				left: -20
+			}).to(".nav--right", 0, {
+				css: {
+					display: 'none'
+				}
+			});
+
+			tl3.to(".container--zoomout", 0.3, {
+				css: {
+					transform: 'scale(1)',
+					opacity: 1,
+					left: '0vw'
+				}
+			}, 0.1);
+		}
+	});
 });
 
 function barbaHomepageOnly() {

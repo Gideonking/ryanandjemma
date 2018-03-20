@@ -2,14 +2,14 @@
 
 @section('content')
 
-<div class="barba-container" data-namespace="homepage">
+<div class="barba-container container--zoomout" data-namespace="homepage">
 	<div class="bubble-container">
 		<canvas id="bubble-canvas" class="bubble-canvas"></canvas>
 	</div>
 
 	<div class="full-container">
-		<div class="container intro__container valign-on--mobile">
-			<div class="row valign valign-off--mobile">
+		<div class="container intro__container valign-on--tablet">
+			<div class="row valign valign-off--tablet">
 				<div class="js-parallax--initial col-md-6 intro__container--initials">
 					<img class="intro__initials" src="/img/JR.png" alt="" data-depth="0.2">
 				</div>

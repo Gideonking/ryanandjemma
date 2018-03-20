@@ -8350,6 +8350,11 @@ button.close {
   }
 }
 
+html,
+body {
+  overflow: hidden;
+}
+
 a {
   text-decoration: none;
 }
@@ -8358,6 +8363,7 @@ a:hover,
 a:active,
 a:focus {
   text-decoration: none;
+  outline: none;
 }
 
 img {
@@ -8367,6 +8373,10 @@ img {
 
 .start-hide {
   opacity: 0;
+}
+
+.container--zoomout {
+  position: relative;
 }
 
 .wave-container {
@@ -8469,6 +8479,15 @@ img {
   }
 }
 
+@media only screen and (min-width: 769px) {
+  .container--zoomout {
+    left: 0 !important;
+    opacity: 1 !important;
+    -webkit-transform: none !important;
+            transform: none !important;
+  }
+}
+
 .navbar {
   position: fixed;
   width: 100%;
@@ -8486,7 +8505,39 @@ img {
   -webkit-box-align: center;
       -ms-flex-align: center;
           align-items: center;
-  min-height: 80px;
+}
+
+.nav__toggle {
+  display: none;
+  -webkit-box-align: center;
+      -ms-flex-align: center;
+          align-items: center;
+  -webkit-box-pack: center;
+      -ms-flex-pack: center;
+          justify-content: center;
+  position: fixed;
+  top: 0;
+  left: 0;
+  font-size: 2em;
+  width: 65px;
+  height: 65px;
+  background-color: #333333;
+  color: #ffffff;
+  cursor: pointer;
+}
+
+.nav__toggle:hover,
+.nav__toggle:focus,
+.nav__toggle:active {
+  color: #ffffff;
+}
+
+.nav__toggle-close.fa {
+  display: none;
+}
+
+.nav__toggle-open.fa {
+  display: block;
 }
 
 .nav__icon {
@@ -8534,17 +8585,12 @@ img {
   font-weight: bold;
   font-size: 1.25em;
   margin-left: 20px;
-  -webkit-box-shadow: inset 0 0 0 0 #333333;
-          box-shadow: inset 0 0 0 0 #333333;
-  -webkit-transition: all 0.4s ease-in-out 0s;
-  transition: all 0.4s ease-in-out 0s;
 }
 
 .nav__list:hover,
-.nav__list:active {
-  color: #ffffff;
-  -webkit-box-shadow: inset -300px 0 0 0 #333333;
-          box-shadow: inset -300px 0 0 0 #333333;
+.nav__list:active,
+.nav__list:focus {
+  color: #333333;
 }
 
 .nav--right {
@@ -8552,25 +8598,75 @@ img {
   right: 0;
 }
 
-@media only screen and (max-width: 767px) {
+body.mobile-nav-open .nav__toggle-open.fa {
+  display: none;
+}
+
+body.mobile-nav-open .nav__toggle-close.fa {
+  display: block;
+}
+
+@media only screen and (max-width: 768px) {
   .nav__icon-wrapper {
     display: none;
   }
 
   .nav__list {
-    font-size: 1em;
+    display: block;
+    font-size: 1.5em;
     margin: 0 10px;
   }
 
   .nav--right {
+    top: 80px;
+    width: 57.5%;
+    text-align: center;
     position: absolute;
     right: 0;
     left: 0;
+    -ms-flex-pack: distribute;
+        justify-content: space-around;
+    opacity: 0;
+    left: -20px;
+    display: none;
+  }
+
+  .nav__toggle {
     display: -webkit-box;
     display: -ms-flexbox;
     display: flex;
-    -ms-flex-pack: distribute;
-        justify-content: space-around;
+  }
+}
+
+@media only screen and (max-width: 420px) {
+  .nav__list {
+    font-size: 1em;
+  }
+
+  .nav__toggle {
+    width: 50px;
+    height: 50px;
+    font-size: 1.25em;
+  }
+}
+
+@media only screen and (min-width: 769px) {
+  .nav--right {
+    left: auto !important;
+  }
+
+  .nav__list {
+    -webkit-box-shadow: inset 0 0 0 0 #333333;
+            box-shadow: inset 0 0 0 0 #333333;
+    -webkit-transition: all 0.4s ease-in-out 0s;
+    transition: all 0.4s ease-in-out 0s;
+  }
+
+  .nav__list:hover,
+  .nav__list:active {
+    color: #ffffff;
+    -webkit-box-shadow: inset -300px 0 0 0 #333333;
+            box-shadow: inset -300px 0 0 0 #333333;
   }
 }
 
@@ -8619,7 +8715,7 @@ img {
   font-family: 'Mr De Haviland', cursive;
 }
 
-@media only screen and (max-width: 767px) {
+@media only screen and (max-width: 768px) {
   .intro__container {
     display: block;
   }
