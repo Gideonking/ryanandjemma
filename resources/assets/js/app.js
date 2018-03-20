@@ -140,7 +140,7 @@ $(function () {
 	Barba.Pjax.start();
 	
 	/* Prevent BarbaJS refresh when same page redirection */
-	var links = $('a[href]');
+	var links = $('a.js--preventrefresh');
 		var cbk = function(e) {
 		 if(e.currentTarget.href === window.location.href) {
 		   e.preventDefault();
