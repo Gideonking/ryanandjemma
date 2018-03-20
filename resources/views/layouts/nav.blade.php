@@ -14,10 +14,10 @@
 					<a class="nav__list barba--rsvp js--preventrefresh" href="rsvp">RSVP</a>
 					<a class="nav__list barba--gift js--preventrefresh" href="gift">GIFT</a>
 				</div>
-				<a href="#" class="nav__toggle">
+				<div class="nav__toggle">
 					<i class="fa fa-times nav__toggle-close"></i>
 					<i class="fa fa-bars nav__toggle-open"></i>
-				</a>
+				</div>
 			</div>
 		</div>
 	</div>
