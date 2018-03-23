@@ -13,7 +13,10 @@
 		</svg>
 	</div>
 	@include('layouts.nav')
-	<div id="barba-wrapper">
+	<div id="barba-wrapper" class="container--zoomout">
+		<div class="bubble-container">
+			<canvas class="bubble-canvas" class="bubble-canvas"></canvas>
+		</div>
 		@yield('content')
 	</div>
 	@include('layouts.footer')

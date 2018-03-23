@@ -98,7 +98,7 @@ body.mobile-nav-open .nav__toggle {
 		&__list {
 			display: block;
 			font-size: 1.5em;
-			margin: 0 10px;
+			margin: 0 10px 15px;
 		}
 		&--right {
 			top: 80px;
@@ -134,6 +134,8 @@ body.mobile-nav-open .nav__toggle {
 @media only screen and (min-width: 769px) {
 	.nav {
 		&--right {
+			display: block !important;
+    		opacity: 1 !important;
 			left: auto !important;
 		}
 		&__list {

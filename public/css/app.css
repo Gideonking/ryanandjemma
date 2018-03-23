@@ -8614,7 +8614,7 @@ body.mobile-nav-open .nav__toggle-close.fa {
   .nav__list {
     display: block;
     font-size: 1.5em;
-    margin: 0 10px;
+    margin: 0 10px 15px;
   }
 
   .nav--right {
@@ -8652,6 +8652,8 @@ body.mobile-nav-open .nav__toggle-close.fa {
 
 @media only screen and (min-width: 769px) {
   .nav--right {
+    display: block !important;
+    opacity: 1 !important;
     left: auto !important;
   }
 
@@ -8685,6 +8687,10 @@ body.mobile-nav-open .nav__toggle-close.fa {
 
 .intro__container > * {
   line-height: 1;
+}
+
+.intro__initials {
+  margin: 0 auto;
 }
 
 .intro__text-icon {

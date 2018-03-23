@@ -2,11 +2,7 @@
 
 @section('content')
 
-<div class="barba-container container--zoomout" data-namespace="homepage">
-	<div class="bubble-container">
-		<canvas id="bubble-canvas" class="bubble-canvas"></canvas>
-	</div>
-
+<div class="barba-container" data-namespace="homepage">
 	<div class="full-container">
 		<div class="container intro__container valign-on--tablet">
 			<div class="row valign valign-off--tablet">

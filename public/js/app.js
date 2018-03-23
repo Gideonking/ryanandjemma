@@ -782,7 +782,30 @@ module.exports = __webpack_require__(37);
 
 __webpack_require__(10);
 
+var desktopVer = true,
+    pageIntroduced = false,
+    currentColor = '#f57576',
+    waterColor = {
+	'homepage': '#f57576',
+	'info': '#55B788'
+},
+    parallaxScene1 = null,
+    parallaxInstance1 = null,
+    parallaxScene2 = null,
+    parallaxInstance2 = null;
+
 $(function () {
+	/* Mediacheck */
+	mediaCheck({
+		media: '(max-width: 768px)',
+		entry: function entry() {
+			desktopVer = false;
+		},
+		exit: function exit() {
+			desktopVer = true;
+		}
+	});
+
 	/* BARBA */
 	var lastElementClicked;
 
@@ -790,93 +813,37 @@ $(function () {
 		clickedElem = e;
 	});
 
-	var Homepage = Barba.BaseView.extend({
+	var HomepageIntro = Barba.BaseView.extend({
 		namespace: 'homepage',
 		onEnter: function onEnter() {
-			$('.water').wavify({
-				height: -49,
-				amplitude: 50,
-				speed: .25,
-				bones: 3,
-				color: '#f57576'
-			});
-
-			var tl = new TimelineMax(),
-			    tl2 = new TimelineMax(),
-			    tl3 = new TimelineMax();
-
-			tl.to(".start-hide", 0.5, {
-				opacity: 1
-			}).fromTo(".wave", 1.5, {
-				css: {
-					paddingTop: '100vh'
-				}
-			}, {
-				css: {
-					paddingTop: '0vh'
-				}
-			}).from("#barba-wrapper", 0.5, {
-				opacity: 0
-			}).to(".wave", 0, {
-				css: {
-					opacity: 0,
-					paddingTop: '100vh'
-				}
-			}).from(".navbar", 0.5, {
-				opacity: 0
-			});
-
-			tl2.from(".intro__container--initials", 1.25, {
-				ease: Power4.easeOut,
-				css: {
-					right: '-100%',
-					opacity: 0
-				}
-			}, 2.5);
-
-			tl3.from(".intro__container--info", 1, {
-				bottom: -40,
-				opacity: 0
-			}, 3);
+			if (!pageIntroduced) {
+				barbaAllIntro(waterColor['homepage']);
+				pageIntroduced = true;
+			}
 		},
 		onEnterCompleted: function onEnterCompleted() {
-			barbaHomepageOnly();
+			barbaHomepageScript();
 		},
 		onLeave: function onLeave() {},
 		onLeaveCompleted: function onLeaveCompleted() {}
 	});
 
-	var GsapTransitionHome = Barba.BaseTransition.extend({
-		start: function start() {
-			Promise.all([this.newContainerLoading, this.out()]).then(this.in.bind(this));
+	var InfoIntro = Barba.BaseView.extend({
+		namespace: 'info',
+		onEnter: function onEnter() {
+			if (!pageIntroduced) {
+				barbaAllIntro(waterColor['info']);
+				pageIntroduced = true;
+			}
 		},
-		out: function out() {
-			var barbaDefer = Barba.Utils.deferred(),
-			    tl = new TimelineMax();
-
-			tl.to("body", 5, {
-				backgroundColor: '#000000'
-			});
-
-			return tl.eventCallback("onComplete", function () {
-				barbaDefer.resolve();
-			}), barbaDefer.promise;
+		onEnterCompleted: function onEnterCompleted() {
+			barbaHomepageScript();
 		},
-		in: function _in() {
-			var _this = this,
-			    tl = ($(this.newContainer), new TimelineMax());
-
-			tl.to("body", 5, {
-				backgroundColor: 'red'
-			});
-
-			tl.eventCallback("onComplete", function () {
-				_this.done();
-			});
-		}
+		onLeave: function onLeave() {},
+		onLeaveCompleted: function onLeaveCompleted() {}
 	});
 
-	var FadeTransition = Barba.BaseTransition.extend({
+	var desktopTransition = Barba.BaseTransition.extend({
 		start: function start() {
 			Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
 		},
@@ -904,13 +871,100 @@ $(function () {
 		}
 	});
 
+	var mobileTransition = Barba.BaseTransition.extend({
+		start: function start() {
+			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
+		},
+		outro: function outro() {
+			var barbaDefer = Barba.Utils.deferred(),
+			    tl = new TimelineMax(),
+			    tl2 = new TimelineMax(),
+			    changeColor = waterColor['homepage'];
+
+			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];
+
+			$('.wave').css({
+				paddingTop: '110vh',
+				opacity: 1
+			});
+
+			$('.water').css({
+				fill: currentColor
+			});
+
+			$('.wave-container').css('z-index', 10);
+
+			tl.fromTo(".nav--right", 0.3, {
+				opacity: 1,
+				left: 0
+			}, {
+				opacity: 0,
+				left: -20
+			}).to(".nav--right", 0, {
+				css: {
+					display: 'none'
+				}
+			});
+
+			tl2.to(".container--zoomout", 0.3, {
+				css: {
+					transform: 'scale(1)',
+					opacity: 1,
+					left: '0vw'
+				}
+			}, 0.1).to(".wave", 1.5, {
+				css: {
+					paddingTop: '0vh'
+				}
+			});
+
+			$('html, body').toggleClass('mobile-nav-open');
+
+			return tl2.eventCallback("onComplete", function () {
+				barbaDefer.resolve();
+			}), barbaDefer.promise;
+		},
+		intro: function intro() {
+			var _this = this,
+			    $el = $(this.newContainer),
+			    tl = new TimelineMax();
+
+			$(this.oldContainer).hide();
+
+			$el.css({
+				visibility: 'visible',
+				opacity: 0
+			});
+
+			$('.bubble-canvas').css('background', currentColor);
+			$('.wave-container').css('z-index', 0);
+
+			$('.wave').animate({
+				opacity: 0
+			}, 500);
+
+			$el.animate({
+				opacity: 1
+			}, 500, function () {
+				barbaHomepageScript($el);
+				_this.done();
+			});
+		}
+	});
+
 	Barba.Pjax.getTransition = function () {
-		var trans = FadeTransition;
-		if ($(clickedElem).hasClass('barba--homepage')) trans = GsapTransitionHome;
+		var trans = !desktopVer ? mobileTransition : desktopTransition;
+		//		if ($(clickedElem).hasClass('barba--homepage')) trans = GsapTransitionHome;
 		return trans;
 	};
 
-	Homepage.init();
+	Barba.Pjax.init();
+
+	var currentPage = Barba.HistoryManager.currentStatus().namespace;
+
+	if (currentPage === 'homepage') HomepageIntro.init();
+	if (currentPage === 'info') InfoIntro.init();
+
 	Barba.Pjax.start();
 
 	/* Prevent BarbaJS refresh when same page redirection */
@@ -926,127 +980,177 @@ $(function () {
 		links[i].addEventListener('click', cbk);
 	}
 
-	/* Mediacheck */
-	mediaCheck({
-		media: '(max-width: 420px)',
-		entry: function entry() {
-			console.log('starting 420');
-		},
-		exit: function exit() {
-			console.log('leaving 420');
-		},
-		both: function both() {
-			console.log('changing state');
-		}
-	});
-
 	/* General */
 	$('body').on('click', '.nav__toggle', function () {
 		$('html, body').toggleClass('mobile-nav-open');
-		if ($('html, body').hasClass('mobile-nav-open')) {
-			var tl = new TimelineMax();
+		if ($('html, body').hasClass('mobile-nav-open')) mobileNavOpen();else mobileNavClose();
+	});
 
-			tl.to(".container--zoomout", 0.3, {
-				css: {
-					transform: 'scale(0.85)',
-					opacity: 0.3,
-					left: '50vw'
-				}
-			}).to(".nav--right", 0, {
-				css: {
-					display: 'block'
-				}
-			}).to(".nav--right", 0.3, {
-				opacity: 1,
-				left: 0
-			}, 0.2);
-		} else {
-			var tl2 = new TimelineMax(),
-			    tl3 = new TimelineMax();
-
-			tl2.fromTo(".nav--right", 0.3, {
-				opacity: 1,
-				left: 0
-			}, {
-				opacity: 0,
-				left: -20
-			}).to(".nav--right", 0, {
-				css: {
-					display: 'none'
-				}
-			});
-
-			tl3.to(".container--zoomout", 0.3, {
-				css: {
-					transform: 'scale(1)',
-					opacity: 1,
-					left: '0vw'
-				}
-			}, 0.1);
-		}
+	$('body').on('click', '.container--zoomout', function () {
+		if ($('.mobile-nav-open').length > 0 && !desktopVer) mobileNavClose();
 	});
 });
 
-function barbaHomepageOnly() {
-	/* Bubble Canvas */
-	var Canvas = document.getElementById('bubble-canvas');
-	var ctx = Canvas.getContext('2d');
+function barbaAllIntro(color) {
+	$('.bubble-canvas').css('background', color);
+	$('.water').wavify({
+		height: -49,
+		amplitude: 50,
+		speed: .25,
+		bones: 3,
+		color: color
+	});
 
-	var resize = function resize() {
-		Canvas.width = Canvas.clientWidth;
-		Canvas.height = Canvas.clientHeight;
-	};
+	var tl = new TimelineMax(),
+	    tl2 = new TimelineMax(),
+	    tl3 = new TimelineMax();
 
-	window.addEventListener('resize', resize);
-	resize();
+	tl.to(".start-hide", 0.5, {
+		opacity: 1
+	}).fromTo(".wave", 1.5, {
+		css: {
+			paddingTop: '110vh'
+		}
+	}, {
+		css: {
+			paddingTop: '0vh'
+		}
+	}).from("#barba-wrapper", 0.5, {
+		opacity: 0
+	}).to(".wave", 0, {
+		css: {
+			opacity: 0,
+			paddingTop: '110vh'
+		}
+	}).from(".navbar", 0.5, {
+		opacity: 0
+	});
 
-	var elements = [];
-	var presets = {};
+	tl2.from(".intro__container--initials", 1.25, {
+		ease: Power4.easeOut,
+		css: {
+			right: '-100%',
+			opacity: 0
+		}
+	}, 2.5);
 
-	presets.r = function (x, y, s, dx, dy) {
-		return {
-			x: x,
-			y: y,
-			r: 12 * s,
-			w: 5 * s,
-			dx: dx,
-			dy: dy,
-			draw: function draw(ctx, t) {
-				this.x += this.dx;
-				this.y += this.dy;
+	tl3.from(".intro__container--info", 1, {
+		bottom: -40,
+		opacity: 0
+	}, 3);
+}
 
-				ctx.beginPath();
-				ctx.arc(this.x + +Math.sin((50 + x + t / 10) / 100) * 3, this.y + +Math.sin((45 + x + t / 10) / 100) * 4, this.r, 0, 2 * Math.PI, false);
-				ctx.fillStyle = "#fda3a6";
-				ctx.fill();
-			}
+function barbaHomepageScript(newPage) {
+	var currentPage = newPage ? newPage : $('.barba-container');
+
+	if (!$('.bubble-container').hasClass('initiated')) {
+		/* Bubble Canvas */
+		var Canvas = $('.bubble-canvas')[0];
+		var ctx = Canvas.getContext('2d');
+
+		var resize = function resize() {
+			Canvas.width = Canvas.clientWidth;
+			Canvas.height = Canvas.clientHeight;
 		};
-	};
 
-	for (var x = 0; x < Canvas.width; x++) {
-		for (var y = 0; y < Canvas.height; y++) {
-			if (Math.round(Math.random() * 8000) == 1) {
-				var s = (Math.random() * 5 + 1) / 10;
-				elements.push(presets.r(x, y, s, 0, 0));
+		window.addEventListener('resize', resize);
+		resize();
+
+		var elements = [];
+		var presets = {};
+
+		presets.r = function (x, y, s, dx, dy) {
+			return {
+				x: x,
+				y: y,
+				r: 12 * s,
+				w: 5 * s,
+				dx: dx,
+				dy: dy,
+				draw: function draw(ctx, t) {
+					this.x += this.dx;
+					this.y += this.dy;
+
+					ctx.beginPath();
+					ctx.arc(this.x + +Math.sin((50 + x + t / 10) / 100) * 3, this.y + +Math.sin((45 + x + t / 10) / 100) * 4, this.r, 0, 2 * Math.PI, false);
+					ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+					ctx.fill();
+				}
+			};
+		};
+
+		for (var x = 0; x < Canvas.width; x++) {
+			for (var y = 0; y < Canvas.height; y++) {
+				if (Math.round(Math.random() * 8000) == 1) {
+					var s = (Math.random() * 5 + 1) / 10;
+					elements.push(presets.r(x, y, s, 0, 0));
+				}
 			}
 		}
+
+		setInterval(function () {
+			ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+
+			var time = new Date().getTime();
+			for (var e in elements) {
+				elements[e].draw(ctx, time);
+			}
+		}, 10);
+
+		$('.bubble-container').addClass('initiated');
 	}
 
-	setInterval(function () {
-		ctx.clearRect(0, 0, Canvas.width, Canvas.height);
-
-		var time = new Date().getTime();
-		for (var e in elements) {
-			elements[e].draw(ctx, time);
-		}
-	}, 10);
-
 	/* Parallax */
-	var scene = $('.js-parallax--initial')[0];
-	var parallaxInstance = new Parallax(scene);
+	if (parallaxInstance1) parallaxInstance1.destroy();
+	if (parallaxInstance2) parallaxInstance2.destroy();
+	parallaxScene1 = $(currentPage).find('.js-parallax--initial')[0];
+	parallaxInstance1 = new Parallax(parallaxScene1);
+	parallaxScene2 = $(currentPage).find('.js-parallax--info')[0];
+	parallaxInstance2 = new Parallax(parallaxScene2);
+}
 
-	var scene2 = $('.js-parallax--info')[0];
-	var parallaxInstance = new Parallax(scene2);
+function mobileNavOpen() {
+	var tl = new TimelineMax();
+
+	tl.to(".container--zoomout", 0.3, {
+		css: {
+			transform: 'scale(0.85)',
+			opacity: 0.3,
+			left: '50vw'
+		}
+	}).to(".nav--right", 0, {
+		css: {
+			display: 'block'
+		}
+	}).to(".nav--right", 0.3, {
+		opacity: 1,
+		left: 0
+	}, 0.2);
+}
+
+function mobileNavClose() {
+	var tl2 = new TimelineMax(),
+	    tl3 = new TimelineMax();
+
+	tl2.fromTo(".nav--right", 0.3, {
+		opacity: 1,
+		left: 0
+	}, {
+		opacity: 0,
+		left: -20
+	}).to(".nav--right", 0, {
+		css: {
+			display: 'none'
+		}
+	});
+
+	tl3.to(".container--zoomout", 0.3, {
+		css: {
+			transform: 'scale(1)',
+			opacity: 1,
+			left: '0vw'
+		}
+	}, 0.1);
 }
 
 /***/ }),
