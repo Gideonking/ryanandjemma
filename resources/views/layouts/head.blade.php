@@ -3,6 +3,10 @@
 <meta name="description" content="">
 <meta name="keywords" content="">
 <meta name="author" content="Ryan Mingyu Choi">
+<meta property="og:title" content="Jemma & Ryan Wedding">
+<meta property="og:description" content="06.02.2018">
+<meta property="og:image" content="https://jemmaryan.com/img/invitation.jpg">
+<meta property="og:url" content="https://jemmaryan.com">
 <meta name="csrf-token" content="{{ csrf_token() }}">
 <link rel="icon" href="/img/favicon.ico">
 
