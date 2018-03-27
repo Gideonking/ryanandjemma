@@ -786,8 +786,11 @@ var desktopVer = true,
     pageIntroduced = false,
     currentColor = '#f57576',
     waterColor = {
-	'homepage': '#f57576',
-	'info': '#55B788'
+	'homepage': '#F57576',
+	'story': '#C6A5FF',
+	'info': '#6BA5B7',
+	'rsvp': '#F7C987',
+	'gift': '#55B788'
 },
     parallaxScene1 = null,
     parallaxInstance1 = null,
@@ -803,6 +806,10 @@ $(function () {
 		},
 		exit: function exit() {
 			desktopVer = true;
+			if ($('body').hasClass('mobile-nav-open')) {
+				$('html, body').removeClass('mobile-nav-open');
+				mobileNavClose();
+			}
 		}
 	});
 
@@ -828,6 +835,21 @@ $(function () {
 		onLeaveCompleted: function onLeaveCompleted() {}
 	});
 
+	var StoryIntro = Barba.BaseView.extend({
+		namespace: 'story',
+		onEnter: function onEnter() {
+			if (!pageIntroduced) {
+				barbaAllIntro(waterColor['story']);
+				pageIntroduced = true;
+			}
+		},
+		onEnterCompleted: function onEnterCompleted() {
+			barbaHomepageScript();
+		},
+		onLeave: function onLeave() {},
+		onLeaveCompleted: function onLeaveCompleted() {}
+	});
+
 	var InfoIntro = Barba.BaseView.extend({
 		namespace: 'info',
 		onEnter: function onEnter() {
@@ -843,18 +865,81 @@ $(function () {
 		onLeaveCompleted: function onLeaveCompleted() {}
 	});
 
+	var RsvpIntro = Barba.BaseView.extend({
+		namespace: 'rsvp',
+		onEnter: function onEnter() {
+			if (!pageIntroduced) {
+				barbaAllIntro(waterColor['rsvp']);
+				pageIntroduced = true;
+			}
+		},
+		onEnterCompleted: function onEnterCompleted() {
+			barbaHomepageScript();
+		},
+		onLeave: function onLeave() {},
+		onLeaveCompleted: function onLeaveCompleted() {}
+	});
+
+	var GiftIntro = Barba.BaseView.extend({
+		namespace: 'gift',
+		onEnter: function onEnter() {
+			if (!pageIntroduced) {
+				barbaAllIntro(waterColor['gift']);
+				pageIntroduced = true;
+			}
+		},
+		onEnterCompleted: function onEnterCompleted() {
+			barbaHomepageScript();
+		},
+		onLeave: function onLeave() {},
+		onLeaveCompleted: function onLeaveCompleted() {}
+	});
+
 	var desktopTransition = Barba.BaseTransition.extend({
 		start: function start() {
-			Promise.all([this.newContainerLoading, this.fadeOut()]).then(this.fadeIn.bind(this));
+			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
 		},
-		fadeOut: function fadeOut() {
-			return $(this.oldContainer).animate({
+		outro: function outro() {
+			var barbaDefer = Barba.Utils.deferred(),
+			    tl = new TimelineMax(),
+			    tl2 = new TimelineMax(),
+			    tl3 = new TimelineMax(),
+			    changeColor = waterColor['homepage'];
+
+			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
+
+			$('html, body').css({
+				overflowY: 'hidden'
+			});
+
+			tl.to(".bubble-canvas", 1.75, {
+				css: {
+					backgroundColor: currentColor
+				}
+			});
+
+			tl2.to(".intro__container--initials", 1, {
+				ease: Back.easeIn.config(0.8),
+				css: {
+					left: '-50%',
+					opacity: 0
+				}
+			});
+
+			tl3.to(".intro__container--info", 1, {
+				top: -40,
 				opacity: 0
-			}).promise();
+			}, 0.75);
+
+			return tl3.eventCallback("onComplete", function () {
+				barbaDefer.resolve();
+			}), barbaDefer.promise;
 		},
-		fadeIn: function fadeIn() {
-			var _this = this;
-			var $el = $(this.newContainer);
+		intro: function intro() {
+			var _this = this,
+			    $el = $(this.newContainer),
+			    tl = new TimelineMax(),
+			    tl1 = new TimelineMax();
 
 			$(this.oldContainer).hide();
 
@@ -865,9 +950,26 @@ $(function () {
 
 			$el.animate({
 				opacity: 1
-			}, 400, function () {
+			}, 500, function () {
+				$('html, body').css({
+					overflowY: 'auto'
+				});
+				barbaHomepageScript($el);
 				_this.done();
 			});
+
+			tl.from(".intro__container--initials", 1, {
+				ease: Back.easeOut.config(0.8),
+				css: {
+					right: '-100%',
+					opacity: 0
+				}
+			});
+
+			tl1.from(".intro__container--info", 1, {
+				bottom: -40,
+				opacity: 0
+			}, 0.75);
 		}
 	});
 
@@ -881,7 +983,11 @@ $(function () {
 			    tl2 = new TimelineMax(),
 			    changeColor = waterColor['homepage'];
 
-			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];
+			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
+
+			$('html, body').css({
+				overflowY: 'hidden'
+			});
 
 			$('.wave').css({
 				paddingTop: '110vh',
@@ -946,6 +1052,9 @@ $(function () {
 			$el.animate({
 				opacity: 1
 			}, 500, function () {
+				$('html, body, .container--zoomout').css({
+					overflowY: 'auto'
+				});
 				barbaHomepageScript($el);
 				_this.done();
 			});
@@ -962,8 +1071,7 @@ $(function () {
 
 	var currentPage = Barba.HistoryManager.currentStatus().namespace;
 
-	if (currentPage === 'homepage') HomepageIntro.init();
-	if (currentPage === 'info') InfoIntro.init();
+	if (currentPage === 'homepage') HomepageIntro.init();else if (currentPage === 'story') StoryIntro.init();else if (currentPage === 'info') InfoIntro.init();else if (currentPage === 'rsvp') RsvpIntro.init();else if (currentPage === 'gift') GiftIntro.init();
 
 	Barba.Pjax.start();
 
@@ -987,11 +1095,16 @@ $(function () {
 	});
 
 	$('body').on('click', '.container--zoomout', function () {
-		if ($('.mobile-nav-open').length > 0 && !desktopVer) mobileNavClose();
+		if ($('body').hasClass('mobile-nav-open') && !desktopVer) {
+			$('html, body').toggleClass('mobile-nav-open');
+			mobileNavClose();
+		}
 	});
 });
 
 function barbaAllIntro(color) {
+	$('html, body, .container--zoomout').css('overflowY', 'hidden');
+	$('.container--zoomout').css('height', '100vh');
 	$('.bubble-canvas').css('background', color);
 	$('.water').wavify({
 		height: -49,
@@ -1026,8 +1139,8 @@ function barbaAllIntro(color) {
 		opacity: 0
 	});
 
-	tl2.from(".intro__container--initials", 1.25, {
-		ease: Power4.easeOut,
+	tl2.from(".intro__container--initials", 1, {
+		ease: Back.easeOut.config(0.8),
 		css: {
 			right: '-100%',
 			opacity: 0
@@ -1038,6 +1151,11 @@ function barbaAllIntro(color) {
 		bottom: -40,
 		opacity: 0
 	}, 3);
+
+	setTimeout(function () {
+		$('html, body, .container--zoomout').css('overflowY', 'auto');
+		$('.container--zoomout').css('height', 'auto');
+	}, 4000);
 }
 
 function barbaHomepageScript(newPage) {
@@ -1112,11 +1230,15 @@ function barbaHomepageScript(newPage) {
 function mobileNavOpen() {
 	var tl = new TimelineMax();
 
+	$('html, body').css('overflowY', 'hidden');
+
 	tl.to(".container--zoomout", 0.3, {
 		css: {
 			transform: 'scale(0.85)',
 			opacity: 0.3,
-			left: '50vw'
+			left: '50vw',
+			height: '100vh',
+			overflowY: 'hidden'
 		}
 	}).to(".nav--right", 0, {
 		css: {
@@ -1131,6 +1253,8 @@ function mobileNavOpen() {
 function mobileNavClose() {
 	var tl2 = new TimelineMax(),
 	    tl3 = new TimelineMax();
+
+	$('html, body').css('overflowY', 'auto');
 
 	tl2.fromTo(".nav--right", 0.3, {
 		opacity: 1,
@@ -1148,7 +1272,9 @@ function mobileNavClose() {
 		css: {
 			transform: 'scale(1)',
 			opacity: 1,
-			left: '0vw'
+			left: '0vw',
+			height: 'auto',
+			overflowY: 'auto'
 		}
 	}, 0.1);
 }

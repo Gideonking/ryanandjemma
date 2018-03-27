@@ -1,15 +1,16 @@
 .intro {
 	&__container {
-		display: flex;
-		justify-content: center;
-		align-items: center;
-		height: 100%;
+		margin-top: 80px;
+		height: calc(100vh - 80px);
 		& > * {
 			line-height: 1;
 		}
 	}
+	&__row {
+		height: 100%;
+	}
 	&__initials {
-		margin: 0 auto;
+		float: right;
 	}
 	&__text-icon {
 		width: 50px;
@@ -37,22 +38,46 @@
 	}
 }
 
+@media only screen and (min-width: 769px) {
+	.intro {
+		&__row .col-md-6 {
+			padding-right: 30px;
+			padding-left: 30px;
+		}
+	}
+}
+	
 @media only screen and (max-width: 768px) {
 	.intro {
 		&__container {
 			display: block;
+			margin-top: 65px;
+			height: calc(100vh - 65px);
 			&--info {
 				text-align: center;
 				font-size: 10px;
 			}
 		}
 		&__initials {
-			width: 75%;
+			float: none;
+			width: 90%;
 			margin: 0 auto 30px;
 		}
 		&__text-name,
 		&__text-guest {
 			padding-left: 0;
+		}
+	}
+}
+
+@media only screen and (max-width: 420px) {
+	.intro {
+		&__container {
+			margin-top: 50px;
+			height: calc(100vh - 50px);
+		}
+		&__initials {
+			width: 75%;
 		}
 	}
 }
