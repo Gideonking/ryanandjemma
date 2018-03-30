@@ -15,3 +15,13 @@
 <link rel="stylesheet" href="/css/app.css">
 
 <script src="https://use.fontawesome.com/798a0438d6.js"></script>
+
+<!-- Global site tag (gtag.js) - Google Analytics -->
+<script async src="https://www.googletagmanager.com/gtag/js?id=UA-116672988-1"></script>
+<script>
+	window.dataLayer = window.dataLayer || [];
+	function gtag(){dataLayer.push(arguments);}
+	gtag('js', new Date());
+
+	gtag('config', 'UA-116672988-1');
+</script>

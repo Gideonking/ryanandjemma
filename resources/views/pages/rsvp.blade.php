@@ -14,13 +14,31 @@
 						<h2 class="intro__text-name">JEMMA</h2>
 						<img class="intro__text-icon" src="/img/wed-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
-						<h2 class="intro__text-date">RSVP</h2>
-						<p class="intro__text-guest">Be Our Guest</p>
+						<h2 class="intro__text-date">JOIN US</h2>
+						<a class="typeform-share button" href="https://ryanchoi3.typeform.com/to/cg4TRc" data-mode="popup" target="_blank">RSVP</a>
 					</div>
 				</div>
 			</div>
 		</div>
 	</div>
 </div>
+
+<script>
+	(function(){
+		var qs, js, q, s, d = document,
+			gi = d.getElementById,
+			ce = d.createElement,
+			gt = d.getElementsByTagName,
+			id = "typef_orm_share",
+			b = "https://embed.typeform.com/";
+		
+		if (!gi.call(d, id)) {
+			js = ce.call(d, "script");
+			js.id = id;
+			js.src = b + "embed.js"; q=gt.call(d,"script")[0];
+			q.parentNode.insertBefore(js,q);
+		}
+	})();
+</script>
 
 @endsection
