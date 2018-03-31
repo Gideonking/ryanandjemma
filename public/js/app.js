@@ -845,9 +845,7 @@ $(function () {
 		},
 		onEnterCompleted: function onEnterCompleted() {
 			barbaHomepageScript();
-		},
-		onLeave: function onLeave() {},
-		onLeaveCompleted: function onLeaveCompleted() {}
+		}
 	});
 
 	var InfoIntro = Barba.BaseView.extend({
@@ -860,9 +858,7 @@ $(function () {
 		},
 		onEnterCompleted: function onEnterCompleted() {
 			barbaHomepageScript();
-		},
-		onLeave: function onLeave() {},
-		onLeaveCompleted: function onLeaveCompleted() {}
+		}
 	});
 
 	var RsvpIntro = Barba.BaseView.extend({
@@ -875,9 +871,7 @@ $(function () {
 		},
 		onEnterCompleted: function onEnterCompleted() {
 			barbaHomepageScript();
-		},
-		onLeave: function onLeave() {},
-		onLeaveCompleted: function onLeaveCompleted() {}
+		}
 	});
 
 	var GiftIntro = Barba.BaseView.extend({
@@ -890,9 +884,7 @@ $(function () {
 		},
 		onEnterCompleted: function onEnterCompleted() {
 			barbaHomepageScript();
-		},
-		onLeave: function onLeave() {},
-		onLeaveCompleted: function onLeaveCompleted() {}
+		}
 	});
 
 	var desktopTransition = Barba.BaseTransition.extend({
@@ -948,6 +940,26 @@ $(function () {
 				opacity: 0
 			});
 
+			tl.fromTo(".intro__container--info", 1, {
+				css: {
+					bottom: '-40px',
+					opacity: 0
+				}
+			}, {
+				css: {
+					bottom: '0px',
+					opacity: 1
+				}
+			});
+
+			tl1.from(".intro__container--initials", 1, {
+				ease: Back.easeOut.config(0.8),
+				css: {
+					right: '-100%',
+					opacity: 0
+				}
+			});
+
 			$el.animate({
 				opacity: 1
 			}, 500, function () {
@@ -957,19 +969,6 @@ $(function () {
 				barbaHomepageScript($el);
 				_this.done();
 			});
-
-			tl.from(".intro__container--initials", 1, {
-				ease: Back.easeOut.config(0.8),
-				css: {
-					right: '-100%',
-					opacity: 0
-				}
-			});
-
-			tl1.from(".intro__container--info", 1, {
-				bottom: -40,
-				opacity: 0
-			}, 0.75);
 		}
 	});
 

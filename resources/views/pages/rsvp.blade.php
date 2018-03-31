@@ -12,10 +12,10 @@
 				<div class="js-parallax--info col-md-6 intro__container--info">
 					<div data-depth="0.4">
 						<h2 class="intro__text-name">JEMMA</h2>
-						<img class="intro__text-icon" src="/img/wed-icon.svg" alt="">
+						<img class="intro__text-icon" src="/img/rsvp-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">JOIN US</h2>
-						<a class="typeform-share button" href="https://ryanchoi3.typeform.com/to/cg4TRc" data-mode="popup" target="_blank">RSVP</a>
+						<a class="typeform-share button btn-main" href="https://ryanchoi3.typeform.com/to/cg4TRc" data-mode="popup" target="_blank">RSVP</a>
 					</div>
 				</div>
 			</div>

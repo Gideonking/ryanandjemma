@@ -67,12 +67,6 @@ $(function () {
 		},
 		onEnterCompleted: function() {
 			barbaHomepageScript();
-		},
-		onLeave: function() {
-			
-		},
-		onLeaveCompleted: function() {
-			
 		}
 	});
 	
@@ -86,12 +80,6 @@ $(function () {
 		},
 		onEnterCompleted: function() {
 			barbaHomepageScript();
-		},
-		onLeave: function() {
-			
-		},
-		onLeaveCompleted: function() {
-			
 		}
 	});
 	
@@ -105,12 +93,6 @@ $(function () {
 		},
 		onEnterCompleted: function() {
 			barbaHomepageScript();
-		},
-		onLeave: function() {
-			
-		},
-		onLeaveCompleted: function() {
-			
 		}
 	});
 	
@@ -124,12 +106,6 @@ $(function () {
 		},
 		onEnterCompleted: function() {
 			barbaHomepageScript();
-		},
-		onLeave: function() {
-			
-		},
-		onLeaveCompleted: function() {
-			
 		}
 	});
 
@@ -191,6 +167,26 @@ $(function () {
 				visibility: 'visible',
 				opacity: 0
 			});
+
+			tl.fromTo(".intro__container--info", 1, {
+				css: {
+					bottom: '-40px',
+					opacity: 0
+				}
+			}, {
+				css: {
+					bottom: '0px',
+					opacity: 1
+				}
+			});
+
+			tl1.from(".intro__container--initials", 1, {
+				ease: Back.easeOut.config(0.8),
+				css: {
+					right: '-100%',
+					opacity: 0
+				}
+			});
 			
 			$el.animate({
 				opacity: 1
@@ -201,19 +197,6 @@ $(function () {
 				barbaHomepageScript($el);
 				_this.done();
 			});
-
-			tl.from(".intro__container--initials", 1, {
-				ease: Back.easeOut.config(0.8),
-				css: {
-					right: '-100%',
-					opacity: 0
-				}
-			});
-
-			tl1.from(".intro__container--info", 1, {
-				bottom: -40,
-				opacity: 0
-			}, 0.75);
 		}
 	});
 

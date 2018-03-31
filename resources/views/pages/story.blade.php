@@ -12,7 +12,7 @@
 				<div class="js-parallax--info col-md-6 intro__container--info">
 					<div data-depth="0.4">
 						<h2 class="intro__text-name">JEMMA</h2>
-						<img class="intro__text-icon" src="/img/wed-icon.svg" alt="">
+						<img class="intro__text-icon" src="/img/story-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">STORY</h2>
 						<p class="intro__text-guest">Be Our Guest</p>
@@ -21,20 +21,6 @@
 			</div>
 		</div>
 	</div>
-<!--
-	<div class="full-container">
-		<div class="container">
-			<div class="row">
-				<div class="col-md-6">
-					<p>Testing</p>
-				</div>
-				<div class="col-md-6">
-					<p>Testing 2</p>
-				</div>
-			</div>
-		</div>
-	</div>
--->
 </div>
 
 @endsection

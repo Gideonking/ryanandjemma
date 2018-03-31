@@ -8431,29 +8431,6 @@ img {
           box-shadow: inset -300px 0 0 0 #ffffff;
 }
 
-.typeform-share {
-  display: inline-block;
-  text-decoration: none;
-  background-color: #37404A;
-  color: white;
-  cursor: pointer;
-  font-family: Helvetica, Arial, sans-serif;
-  font-size: 22px;
-  line-height: 55px;
-  text-align: center;
-  margin: 15px 0 0;
-  height: 55px;
-  padding: 0px 36px;
-  border-radius: 0px;
-  max-width: 100%;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-  font-weight: bold;
-  -webkit-font-smoothing: antialiased;
-  -moz-osx-font-smoothing: grayscale;
-}
-
 .hr {
   display: block;
   height: 2px;
@@ -8795,6 +8772,16 @@ body.mobile-nav-open .nav__toggle-close.fa {
   font-family: 'Mr De Haviland', cursive;
 }
 
+.intro__text-additional {
+  margin-top: 15px;
+  font-size: 16px;
+  color: #ffffff;
+}
+
+.intro__text-additional strong {
+  color: #333333;
+}
+
 @media only screen and (min-width: 769px) {
   .intro__row .col-md-6 {
     padding-right: 30px;
@@ -8834,6 +8821,16 @@ body.mobile-nav-open .nav__toggle-close.fa {
 
   .intro__initials {
     width: 75%;
+  }
+
+  .intro__text-additional strong {
+    display: none;
+  }
+}
+
+@media only screen and (max-width: 375px) {
+  .intro__initials {
+    width: 65%;
   }
 }
 

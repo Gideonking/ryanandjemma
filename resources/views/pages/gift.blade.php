@@ -12,7 +12,7 @@
 				<div class="js-parallax--info col-md-6 intro__container--info">
 					<div data-depth="0.4">
 						<h2 class="intro__text-name">JEMMA</h2>
-						<img class="intro__text-icon" src="/img/wed-icon.svg" alt="">
+						<img class="intro__text-icon" src="/img/gift-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">Thank You</h2>
 						<a class="btn-main" href="https://www.blueprintregistry.com/registry/jemmaryan" target="_blank">
