@@ -10,10 +10,10 @@
 				</div>
 				<div class="nav--right">
 					<a class="nav__list barba--homepage js--preventrefresh" href="/">HOME</a>
-					<a class="nav__list barba--story js--preventrefresh" href="story">STORY</a>
-					<a class="nav__list barba--info js--preventrefresh" href="info">INFO</a>
-					<a class="nav__list barba--rsvp js--preventrefresh" href="rsvp">RSVP</a>
-					<a class="nav__list barba--gift js--preventrefresh" href="gift">GIFT</a>
+					<a class="nav__list barba--story js--preventrefresh" href="/story">STORY</a>
+					<a class="nav__list barba--info js--preventrefresh" href="/info">INFO</a>
+					<a class="nav__list barba--rsvp js--preventrefresh" href="/rsvp">RSVP</a>
+					<a class="nav__list barba--gift js--preventrefresh" href="/gift">GIFT</a>
 				</div>
 				<div class="nav__toggle">
 					<i class="fa fa-times nav__toggle-close"></i>

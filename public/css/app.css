@@ -8431,11 +8431,32 @@ img {
           box-shadow: inset -300px 0 0 0 #ffffff;
 }
 
+.btn-main.btn-main--dark {
+  margin-top: 4rem;
+  color: #333333;
+  border: 2px solid #333333;
+  -webkit-box-shadow: inset 0 0 0 0 #333333;
+          box-shadow: inset 0 0 0 0 #333333;
+}
+
+.btn-main.btn-main--dark:hover,
+.btn-main.btn-main--dark:active {
+  color: #ffffff;
+  -webkit-box-shadow: inset -300px 0 0 0 #333333;
+          box-shadow: inset -300px 0 0 0 #333333;
+}
+
 .hr {
   display: block;
   height: 2px;
   width: 100%;
   background-color: #ffffff;
+}
+
+.hr--short {
+  height: 5px;
+  margin: 15px auto;
+  width: 100px;
 }
 
 .flex-v {
@@ -8525,6 +8546,7 @@ img {
   overflow: hidden;
 }
 
+.bubble-canvas-timeline,
 .bubble-canvas {
   position: absolute;
   top: 0;
@@ -8536,10 +8558,221 @@ img {
   background: #f57576;
 }
 
+.bubble-canvas-timeline {
+  background: #ffffff;
+}
+
 @media only screen and (max-width: 767px) {
+  .bubble-canvas-timeline,
   .bubble-canvas {
     min-width: 0;
     min-height: 0;
+  }
+}
+
+/*!
+    Title: Vertical-Timeline
+    Version: 2.0.0
+    Last Change: 04/30/17
+    Author: Ryan Fitzgerald
+    Repo: https://github.com/RyanFitzgerald/vertical-timeline
+    Issues: https://github.com/RyanFitzgerald/vertical-timeline/issues
+	LICENSE: MIT
+*/
+
+.vtimeline {
+  position: relative;
+  padding: 30px;
+  overflow: hidden;
+}
+
+.vtimeline:before {
+  content: '';
+  position: absolute;
+  height: 100%;
+  width: 4px;
+  background: #FFC519;
+  top: 0;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+}
+
+.vtimeline-point {
+  position: relative;
+  width: 100%;
+  margin-bottom: 30px;
+}
+
+.vtimeline-icon {
+  position: absolute;
+  top: 10px;
+  height: 25px;
+  width: 25px;
+  left: 0;
+  right: 0;
+  margin: 0 auto;
+  border-radius: 50%;
+  background: #FFC519;
+}
+
+.vtimeline-block {
+  width: 45%;
+  margin: 0;
+  -webkit-transition: 0.5s ease all;
+  transition: 0.5s ease all;
+}
+
+.vtimeline-block:after {
+  content: '';
+  position: absolute;
+  top: 13px;
+  left: 45%;
+  width: 0;
+  height: 0;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: 10px solid #333333;
+  border-right: none;
+}
+
+.vtimeline-right {
+  margin-left: 55%;
+}
+
+.vtimeline-right.vt-animate-slide .vtimeline-content {
+  -webkit-transform: translateX(100%);
+  transform: translateX(100%);
+}
+
+.vtimeline-right .vtimeline-date {
+  left: auto;
+  right: 55%;
+}
+
+.vtimeline-right:after {
+  left: auto;
+  right: 45%;
+  border-top: 10px solid transparent;
+  border-bottom: 10px solid transparent;
+  border-left: none;
+  border-right: 10px solid #333333;
+}
+
+.vtimeline-date {
+  position: absolute;
+  left: 55%;
+  top: 15px;
+  font-weight: bold;
+}
+
+.vtimeline-content {
+  padding: 15px;
+  background: #333333;
+  -webkit-transition: 0.5s ease all;
+  transition: 0.5s ease all;
+  color: #ffffff;
+}
+
+.vt-animate-fade {
+  opacity: 0;
+}
+
+.vt-animate-slide {
+  opacity: 0;
+}
+
+.vt-animate-slide .vtimeline-content {
+  -webkit-transform: translateX(-100%);
+  transform: translateX(-100%);
+}
+
+.vt-noarrows:after {
+  content: none;
+}
+
+.timeline-container .intro__text-date {
+  color: #333333;
+}
+
+.timeline__title {
+  margin-top: 0;
+}
+
+.timeline__panel--left .fixed-content {
+  position: fixed;
+}
+
+.timeline__memories {
+  background-color: #ffc519;
+  position: relative;
+  z-index: 9999;
+}
+
+.memories__title {
+  margin-top: 2em;
+}
+
+@media only screen and (max-width: 992px) {
+  .vtimeline:before {
+    left: 30px;
+    right: auto;
+    margin: 0;
+  }
+
+  .vtimeline-icon {
+    left: -10px;
+    right: auto;
+    margin: 0;
+  }
+
+  .vtimeline-block {
+    width: 90%;
+    margin-left: 10%;
+  }
+
+  .vtimeline-block:after {
+    left: auto;
+    right: 90%;
+    border-top: 10px solid transparent;
+    border-bottom: 10px solid transparent;
+    border-left: none;
+    border-right: 10px solid #333333;
+  }
+
+  .vtimeline-date {
+    position: relative;
+    display: block;
+    top: 0;
+    left: 0;
+    right: auto;
+    background: #333333;
+    color: #ffffff;
+    padding: 15px 0 0 15px;
+  }
+
+  .vtimeline-right .vtimeline-date {
+    right: auto;
+  }
+
+  .vtimeline.basic .vtimeline-date {
+    padding: 10px 10px 0 10px;
+  }
+
+  .vt-animate-slide .vtimeline-content {
+    -webkit-transform: translateX(100%);
+    transform: translateX(100%);
+  }
+
+  .timeline-container .intro__text-date {
+    color: #FFC519;
+    margin-bottom: -11px;
+  }
+
+  .timeline__panel--left .fixed-content {
+    position: relative;
+    padding: 0 10px;
   }
 }
 

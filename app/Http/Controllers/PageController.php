@@ -12,6 +12,9 @@ class PageController extends Controller
     public function story() {
         return view('pages.story');
     }
+    public function timeline() {
+        return view('pages.timeline');
+    }
     public function info() {
         return view('pages.info');
     }

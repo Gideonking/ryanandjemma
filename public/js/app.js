@@ -788,6 +788,7 @@ var desktopVer = true,
     waterColor = {
 	'homepage': '#F57576',
 	'story': '#C6A5FF',
+	'timeline': '#ffffff',
 	'info': '#6BA5B7',
 	'rsvp': '#F7C987',
 	'gift': '#55B788'
@@ -898,7 +899,7 @@ $(function () {
 			    tl3 = new TimelineMax(),
 			    changeColor = waterColor['homepage'];
 
-			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
+			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--totimeline')) currentColor = waterColor['timeline'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
 
 			$('html, body').css({
 				overflowY: 'hidden'
@@ -972,6 +973,104 @@ $(function () {
 		}
 	});
 
+	var desktopTransitionToTimeline = Barba.BaseTransition.extend({
+		start: function start() {
+			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
+		},
+		outro: function outro() {
+			var barbaDefer = Barba.Utils.deferred(),
+			    tl = new TimelineMax(),
+			    tl2 = new TimelineMax(),
+			    tl3 = new TimelineMax(),
+			    tl4 = new TimelineMax(),
+			    tl5 = new TimelineMax(),
+			    currentColor = waterColor['timeline'];
+
+			$('html, body').css({
+				overflowY: 'hidden'
+			});
+
+			tl.to(".bubble-canvas", 1.75, {
+				css: {
+					backgroundColor: currentColor
+				}
+			});
+
+			tl2.to(".navbar", 1, {
+				top: -80,
+				opacity: 0
+			});
+
+			tl3.to(".js-transition-fadeout", 1, {
+				opacity: 0
+			});
+
+			tl4.to(".intro__text-date", 1, {
+				css: {
+					color: '#333333'
+				}
+			});
+
+			tl5.staggerFromTo(".intro__text-blur", 0.5, {
+				css: {
+					opacity: 1,
+					filter: 'blur(0px)'
+				}
+			}, {
+				css: {
+					opacity: 0,
+					filter: 'blur(20px)'
+				}
+			}, 0.2, 1.2, "stagger");
+
+			return tl5.eventCallback("onComplete", function () {
+				barbaDefer.resolve();
+			}), barbaDefer.promise;
+		},
+		intro: function intro() {
+			var _this = this,
+			    $el = $(this.newContainer),
+			    tl = new TimelineMax();
+
+			$(this.oldContainer).hide();
+
+			$('.full-container').css('overflow-y', 'auto');
+
+			$el.css({
+				visibility: 'visible',
+				opacity: 0
+			});
+
+			$('.timeline').verticalTimeline({
+				startLeft: false,
+				alternate: true,
+				arrows: true
+			});
+
+			tl.staggerFromTo(".intro__text-blur", 0.5, {
+				css: {
+					opacity: 0,
+					filter: 'blur(20px)'
+				}
+			}, {
+				css: {
+					opacity: 1,
+					filter: 'blur(0px)'
+				}
+			}, 0.2, 0.5, "stagger");
+
+			$el.animate({
+				opacity: 1
+			}, 500, function () {
+				$('html, body').css({
+					overflowY: 'auto'
+				});
+				barbaTimelineScript($el);
+				_this.done();
+			});
+		}
+	});
+
 	var mobileTransition = Barba.BaseTransition.extend({
 		start: function start() {
 			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
@@ -982,7 +1081,7 @@ $(function () {
 			    tl2 = new TimelineMax(),
 			    changeColor = waterColor['homepage'];
 
-			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
+			if ($(clickedElem).hasClass('barba--homepage')) currentColor = waterColor['homepage'];else if ($(clickedElem).hasClass('barba--story')) currentColor = waterColor['story'];else if ($(clickedElem).hasClass('barba--totimeline')) currentColor = waterColor['timeline'];else if ($(clickedElem).hasClass('barba--info')) currentColor = waterColor['info'];else if ($(clickedElem).hasClass('barba--rsvp')) currentColor = waterColor['rsvp'];else if ($(clickedElem).hasClass('barba--gift')) currentColor = waterColor['gift'];
 
 			$('html, body').css({
 				overflowY: 'hidden'
@@ -1062,7 +1161,7 @@ $(function () {
 
 	Barba.Pjax.getTransition = function () {
 		var trans = !desktopVer ? mobileTransition : desktopTransition;
-		//		if ($(clickedElem).hasClass('barba--homepage')) trans = GsapTransitionHome;
+		if ($(clickedElem).hasClass('barba--totimeline')) trans = !desktopVer ? mobileTransitionToTimeline : desktopTransitionToTimeline;else if ($(clickedElem).hasClass('barba--fromtimeline')) trans = !desktopVer ? mobileTransitionFromTimeline : desktopTransitionFromTimeline;
 		return trans;
 	};
 
@@ -1070,7 +1169,7 @@ $(function () {
 
 	var currentPage = Barba.HistoryManager.currentStatus().namespace;
 
-	if (currentPage === 'homepage') HomepageIntro.init();else if (currentPage === 'story') StoryIntro.init();else if (currentPage === 'info') InfoIntro.init();else if (currentPage === 'rsvp') RsvpIntro.init();else if (currentPage === 'gift') GiftIntro.init();
+	if (currentPage === 'homepage') HomepageIntro.init();else if (currentPage === 'story') StoryIntro.init();else if (currentPage === 'timeline') window.location.replace("/story");else if (currentPage === 'info') InfoIntro.init();else if (currentPage === 'rsvp') RsvpIntro.init();else if (currentPage === 'gift') GiftIntro.init();
 
 	Barba.Pjax.start();
 
@@ -1216,6 +1315,74 @@ function barbaHomepageScript(newPage) {
 
 		$('.bubble-container').addClass('initiated');
 	}
+
+	/* Parallax */
+	if (parallaxInstance1) parallaxInstance1.destroy();
+	if (parallaxInstance2) parallaxInstance2.destroy();
+	parallaxScene1 = $(currentPage).find('.js-parallax--initial')[0];
+	parallaxInstance1 = new Parallax(parallaxScene1);
+	parallaxScene2 = $(currentPage).find('.js-parallax--info')[0];
+	parallaxInstance2 = new Parallax(parallaxScene2);
+}
+
+function barbaTimelineScript(newPage) {
+	var currentPage = newPage ? newPage : $('.barba-container');
+
+	$('.bubble-canvas').remove();
+	$('.bubble-container').append('<canvas class="bubble-canvas-timeline"></canvas>');
+
+	/* Bubble Canvas */
+	var Canvas = $('.bubble-canvas-timeline')[0];
+	var ctx = Canvas.getContext('2d');
+
+	var resize = function resize() {
+		Canvas.width = Canvas.clientWidth;
+		Canvas.height = Canvas.clientHeight;
+	};
+
+	window.addEventListener('resize', resize);
+	resize();
+
+	var elements = [];
+	var presets = {};
+
+	presets.r = function (x, y, s, dx, dy) {
+		return {
+			x: x,
+			y: y,
+			r: 12 * s,
+			w: 5 * s,
+			dx: dx,
+			dy: dy,
+			draw: function draw(ctx, t) {
+				this.x += this.dx;
+				this.y += this.dy;
+
+				ctx.beginPath();
+				ctx.arc(this.x + +Math.sin((50 + x + t / 10) / 100) * 3, this.y + +Math.sin((45 + x + t / 10) / 100) * 4, this.r, 0, 2 * Math.PI, false);
+				ctx.fillStyle = "rgba(255, 197, 25, 0.8)";
+				ctx.fill();
+			}
+		};
+	};
+
+	for (var x = 0; x < Canvas.width; x++) {
+		for (var y = 0; y < Canvas.height; y++) {
+			if (Math.round(Math.random() * 8000) == 1) {
+				var s = (Math.random() * 5 + 1) / 10;
+				elements.push(presets.r(x, y, s, 0, 0));
+			}
+		}
+	}
+
+	setInterval(function () {
+		ctx.clearRect(0, 0, Canvas.width, Canvas.height);
+
+		var time = new Date().getTime();
+		for (var e in elements) {
+			elements[e].draw(ctx, time);
+		}
+	}, 10);
 
 	/* Parallax */
 	if (parallaxInstance1) parallaxInstance1.destroy();

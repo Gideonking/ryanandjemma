@@ -4,3 +4,4 @@
 <script src="/js/app.js" type="text/javascript"></script>
 <script src="/js/vendor/jquery.wavify.js" type="text/javascript"></script>
 <script src="/js/vendor/mediacheck.min.js" type="text/javascript"></script>
+<script src="/js/vendor/timeline.min.js" type="text/javascript"></script>
