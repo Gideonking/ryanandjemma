@@ -122,8 +122,13 @@
 	&-container .intro__text-date {
 		color: #333333;
 	}
+	&__icon {
+		margin: auto;
+		width: 50px;
+	}
 	&__title {
-		margin-top: 0;
+		margin-top: 10px;
+		text-align: center;
 	}
 	&__panel--left .fixed-content {
 		position: fixed;
@@ -131,13 +136,18 @@
 	&__memories {
 		background-color: #ffc519;
 		position: relative;
-		z-index: 9999;
+		z-index: 999;
+		padding: 50px 0;
 	}
 }
 
 .memories {
-	&__title {
-		margin-top: 2em;
+	&__img {
+		width: 100%;
+		&-wrapper {
+			padding-top: 15px;
+			padding-bottom: 15px;
+		}
 	}
 }
 
@@ -172,7 +182,8 @@
 		right: auto;
 		background: #333333;
 		color: #ffffff;
-		padding: 15px 0 0 15px;
+		padding: 15px 15px 0 15px;
+		text-align: center;
 	}
 	.vtimeline-right .vtimeline-date {
 		right: auto;
@@ -192,6 +203,9 @@
 		&__panel--left .fixed-content {
 			position: relative;
 			padding: 0 10px;
+		}
+		&__img {
+			width: 100%;
 		}
 	}
 }

@@ -973,7 +973,7 @@ $(function () {
 		}
 	});
 
-	var desktopTransitionToTimeline = Barba.BaseTransition.extend({
+	var transitionToTimeline = Barba.BaseTransition.extend({
 		start: function start() {
 			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
 		},
@@ -1030,11 +1030,16 @@ $(function () {
 		intro: function intro() {
 			var _this = this,
 			    $el = $(this.newContainer),
-			    tl = new TimelineMax();
+			    tl = new TimelineMax(),
+			    tl2 = new TimelineMax(),
+			    tl3 = new TimelineMax(),
+			    tl4 = new TimelineMax(),
+			    timelineLine = CSSRulePlugin.getRule('.vtimeline:before');
 
 			$(this.oldContainer).hide();
 
 			$('.full-container').css('overflow-y', 'auto');
+			$('.vtimeline-block').css('opacity', 0);
 
 			$el.css({
 				visibility: 'visible',
@@ -1057,15 +1062,133 @@ $(function () {
 					opacity: 1,
 					filter: 'blur(0px)'
 				}
-			}, 0.2, 0.5, "stagger");
+			}, 0.2, 0.1, "stagger");
+
+			tl2.fromTo(timelineLine, 5, {
+				cssRule: {
+					height: '0%'
+				}
+			}, {
+				cssRule: {
+					height: '100%'
+				}
+			}, 0.5);
+
+			tl3.staggerFrom(".vtimeline-icon", 0.5, {
+				css: {
+					width: 0,
+					height: 0
+				}
+			}, 0.75, 0.5, "stagger");
+
+			tl4.staggerFrom(".vtimeline-block", 0.5, {
+				bottom: '-20',
+				opacity: 0
+			}, 0.75, 0.5, "stagger");
+
+			barbaTimelineScript($el);
+
+			$el.animate({
+				opacity: 1
+			}, 1000, function () {
+				$('html, body').css({
+					overflowY: 'auto'
+				});
+				_this.done();
+			});
+		}
+	});
+
+	var transitionFromTimeline = Barba.BaseTransition.extend({
+		start: function start() {
+			Promise.all([this.newContainerLoading, this.outro()]).then(this.intro.bind(this));
+		},
+		outro: function outro() {
+			var barbaDefer = Barba.Utils.deferred(),
+			    tl = new TimelineMax(),
+			    tl2 = new TimelineMax(),
+			    tl3 = new TimelineMax(),
+			    tl4 = new TimelineMax(),
+			    tl5 = new TimelineMax(),
+			    currentColor = waterColor['timeline'];
+
+			$('html, body').css({
+				overflowY: 'hidden'
+			});
+
+			tl.to(".timeline-container", 1, {
+				opacity: 0
+			});
+
+			tl2.to(".bubble-canvas-timeline", 1, {
+				css: {
+					transform: 'scale(5)',
+					opacity: 0
+				}
+			}, 1);
+
+			return tl2.eventCallback("onComplete", function () {
+				barbaDefer.resolve();
+			}), barbaDefer.promise;
+		},
+		intro: function intro() {
+			var _this = this,
+			    $el = $(this.newContainer),
+			    tl = new TimelineMax(),
+			    tl1 = new TimelineMax(),
+			    tl2 = new TimelineMax();
+
+			$(this.oldContainer).hide();
+			$('.bubble-container').removeClass('initiated');
+			$('.bubble-canvas-timeline').remove();
+			$('.bubble-container').append('<canvas class="bubble-canvas"></canvas>');
+			$('.bubble-canvas').css({ backgroundColor: waterColor['story'] });
+
+			$el.css({
+				visibility: 'visible',
+				opacity: 0
+			});
+
+			tl2.to(".navbar", 1, {
+				top: 0,
+				opacity: 1
+			});
+
+			if (!desktopVer) {
+				$('.wave-container').css('z-index', 0);
+
+				$('.wave').animate({
+					opacity: 0
+				}, 500);
+			} else {
+				tl.fromTo(".intro__container--info", 1, {
+					css: {
+						bottom: '-40px',
+						opacity: 0
+					}
+				}, {
+					css: {
+						bottom: '0px',
+						opacity: 1
+					}
+				});
+
+				tl1.from(".intro__container--initials", 1, {
+					ease: Back.easeOut.config(0.8),
+					css: {
+						right: '-100%',
+						opacity: 0
+					}
+				});
+			}
 
 			$el.animate({
 				opacity: 1
 			}, 500, function () {
-				$('html, body').css({
+				$('html, body, .container--zoomout').css({
 					overflowY: 'auto'
 				});
-				barbaTimelineScript($el);
+				barbaHomepageScript($el);
 				_this.done();
 			});
 		}
@@ -1161,7 +1284,7 @@ $(function () {
 
 	Barba.Pjax.getTransition = function () {
 		var trans = !desktopVer ? mobileTransition : desktopTransition;
-		if ($(clickedElem).hasClass('barba--totimeline')) trans = !desktopVer ? mobileTransitionToTimeline : desktopTransitionToTimeline;else if ($(clickedElem).hasClass('barba--fromtimeline')) trans = !desktopVer ? mobileTransitionFromTimeline : desktopTransitionFromTimeline;
+		if ($(clickedElem).hasClass('barba--totimeline')) trans = transitionToTimeline;else if ($(clickedElem).hasClass('barba--fromtimeline')) trans = transitionFromTimeline;
 		return trans;
 	};
 
@@ -1275,7 +1398,7 @@ function barbaHomepageScript(newPage) {
 		var elements = [];
 		var presets = {};
 
-		presets.r = function (x, y, s, dx, dy) {
+		presets.r = function (x, y, s, dx, dy, a) {
 			return {
 				x: x,
 				y: y,
@@ -1283,13 +1406,15 @@ function barbaHomepageScript(newPage) {
 				w: 5 * s,
 				dx: dx,
 				dy: dy,
+				a: a,
 				draw: function draw(ctx, t) {
 					this.x += this.dx;
 					this.y += this.dy;
+					this.a += this.a;
 
 					ctx.beginPath();
 					ctx.arc(this.x + +Math.sin((50 + x + t / 10) / 100) * 3, this.y + +Math.sin((45 + x + t / 10) / 100) * 4, this.r, 0, 2 * Math.PI, false);
-					ctx.fillStyle = "rgba(255, 255, 255, 0.2)";
+					ctx.fillStyle = "rgba(255, 255, 255, " + a + ")";
 					ctx.fill();
 				}
 			};
@@ -1298,8 +1423,9 @@ function barbaHomepageScript(newPage) {
 		for (var x = 0; x < Canvas.width; x++) {
 			for (var y = 0; y < Canvas.height; y++) {
 				if (Math.round(Math.random() * 8000) == 1) {
-					var s = (Math.random() * 5 + 1) / 10;
-					elements.push(presets.r(x, y, s, 0, 0));
+					var s = (Math.random() * 5 + 1) / 10,
+					    a = Math.random();
+					elements.push(presets.r(x, y, s, 0, 0, a));
 				}
 			}
 		}
@@ -1346,7 +1472,7 @@ function barbaTimelineScript(newPage) {
 	var elements = [];
 	var presets = {};
 
-	presets.r = function (x, y, s, dx, dy) {
+	presets.r = function (x, y, s, dx, dy, a) {
 		return {
 			x: x,
 			y: y,
@@ -1354,13 +1480,15 @@ function barbaTimelineScript(newPage) {
 			w: 5 * s,
 			dx: dx,
 			dy: dy,
+			a: a,
 			draw: function draw(ctx, t) {
 				this.x += this.dx;
 				this.y += this.dy;
+				this.a += this.a;
 
 				ctx.beginPath();
 				ctx.arc(this.x + +Math.sin((50 + x + t / 10) / 100) * 3, this.y + +Math.sin((45 + x + t / 10) / 100) * 4, this.r, 0, 2 * Math.PI, false);
-				ctx.fillStyle = "rgba(255, 197, 25, 0.8)";
+				ctx.fillStyle = "rgba(255, 197, 25, " + a + ")";
 				ctx.fill();
 			}
 		};
@@ -1369,8 +1497,9 @@ function barbaTimelineScript(newPage) {
 	for (var x = 0; x < Canvas.width; x++) {
 		for (var y = 0; y < Canvas.height; y++) {
 			if (Math.round(Math.random() * 8000) == 1) {
-				var s = (Math.random() * 5 + 1) / 10;
-				elements.push(presets.r(x, y, s, 0, 0));
+				var s = (Math.random() * 5 + 1) / 10,
+				    a = Math.random();
+				elements.push(presets.r(x, y, s, 0, 0, a));
 			}
 		}
 	}
@@ -1384,13 +1513,25 @@ function barbaTimelineScript(newPage) {
 		}
 	}, 10);
 
-	/* Parallax */
-	if (parallaxInstance1) parallaxInstance1.destroy();
-	if (parallaxInstance2) parallaxInstance2.destroy();
-	parallaxScene1 = $(currentPage).find('.js-parallax--initial')[0];
-	parallaxInstance1 = new Parallax(parallaxScene1);
-	parallaxScene2 = $(currentPage).find('.js-parallax--info')[0];
-	parallaxInstance2 = new Parallax(parallaxScene2);
+	$(function () {
+		$('.memories-gallery').magnificPopup({
+			delegate: 'a',
+			type: 'image',
+			tLoading: 'Loading image #%curr%...',
+			mainClass: 'mfp-img-mobile',
+			gallery: {
+				enabled: true,
+				navigateByImgClick: true,
+				preload: [0, 1]
+			},
+			image: {
+				tError: '<a href="%url%">The image #%curr%</a> could not be loaded.',
+				titleSrc: function titleSrc(item) {
+					return '<small>Jemma and Ryan</small>';
+				}
+			}
+		});
+	});
 }
 
 function mobileNavOpen() {
