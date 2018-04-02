@@ -14,9 +14,7 @@
 					<a class="nav__list barba--info js--preventrefresh" href="/info">INFO</a>
 					<a class="nav__list barba--rsvp js--preventrefresh" href="/rsvp">RSVP</a>
 					<a class="nav__list barba--gift js--preventrefresh" href="/gift">GIFT</a>
-					<a class="nav__list" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank">
-						#choPLUSi
-					</a>
+					<a class="nav__list" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank">#choPLUSi</a>
 				</div>
 				<div class="nav__toggle">
 					<i class="fa fa-times nav__toggle-close"></i>

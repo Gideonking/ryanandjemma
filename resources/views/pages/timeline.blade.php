@@ -65,9 +65,7 @@
 				<div class="col-md-12 text-center">
 					<h1 class="memories__title text-center">Our Memories</h1>
 					<div class="hr hr--short"></div>
-					<a class="btn-main" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank">
-						<i class="fa fa-instagram"></i> #choPLUSi
-					</a>
+					<a class="btn-main" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank"><i class="fa fa-instagram"></i> #choPLUSi</a>
 				</div>
 				<div class="container">
 					<div class="memories-gallery">
@@ -142,6 +140,30 @@
 						</a>
 						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/23.jpg" title="">
 							<img class="memories__img" src="/img/memories/23_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/24.jpg" title="">
+							<img class="memories__img" src="/img/memories/24_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/25.jpg" title="">
+							<img class="memories__img" src="/img/memories/25_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/26.jpg" title="">
+							<img class="memories__img" src="/img/memories/26_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/27.jpg" title="">
+							<img class="memories__img" src="/img/memories/27_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/28.jpg" title="">
+							<img class="memories__img" src="/img/memories/28_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/29.jpg" title="">
+							<img class="memories__img" src="/img/memories/29_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/30.jpg" title="">
+							<img class="memories__img" src="/img/memories/30_thumb.jpg">
+						</a>
+						<a class="col-sm-3 memories__img-wrapper" href="#" data-mfp-src="/img/memories/31.jpg" title="">
+							<img class="memories__img" src="/img/memories/31_thumb.jpg">
 						</a>
 					</div>
 				</div>
