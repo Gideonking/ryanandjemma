@@ -62,9 +62,12 @@
 		</div>
 		<div class="container-fluid">
 			<div class="row timeline__memories">
-				<div class="col-md-12">
+				<div class="col-md-12 text-center">
 					<h1 class="memories__title text-center">Our Memories</h1>
 					<div class="hr hr--short"></div>
+					<a class="btn-main" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank">
+						<i class="fa fa-instagram"></i> #choPLUSi
+					</a>
 				</div>
 				<div class="container">
 					<div class="memories-gallery">
