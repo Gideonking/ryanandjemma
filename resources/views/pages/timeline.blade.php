@@ -145,6 +145,12 @@
 			</div>
 		</div>
 	</div>
+
+	<div class="scroll-top page-scroll visible-xs visible-sm">
+		<a class="btn btn-default" href="#">
+			<i class="fa fa-chevron-up"></i>
+		</a>
+	</div>
 </div>
 
 @endsection

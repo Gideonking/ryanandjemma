@@ -1531,6 +1531,14 @@ function barbaTimelineScript(newPage) {
 				}
 			}
 		});
+
+		$('body').on('click', '.page-scroll a', function (e) {
+			e.preventDefault();
+
+			$('.full-container').animate({
+				scrollTop: 0
+			}, 1000);
+		});
 	});
 }
 

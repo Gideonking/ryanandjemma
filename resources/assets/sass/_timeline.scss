@@ -151,6 +151,28 @@
 	}
 }
 
+.scroll-top {
+    z-index: 1049;
+    position: fixed;
+    right: 30px;
+    bottom: 15px;
+    width: 50px;
+    height: 50px;
+}
+
+.scroll-top .btn {
+    width: 50px;
+    height: 50px;
+    border-radius: 100%;
+    font-size: 20px;
+    line-height: 30px;
+    border: 3px solid #333333;
+}
+
+.scroll-top .btn:focus {
+    outline: 0;
+}
+
 @media only screen and (max-width: 992px) {
 	.vtimeline:before {
 		left: 30px;
