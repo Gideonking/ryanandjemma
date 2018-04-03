@@ -8,7 +8,7 @@
 			<div class="row">
 				<div class="col-md-3 timeline__panel--left">
 					<div class="fixed-content">
-						<a class="btn-main btn-main--dark barba--fromtimeline js--preventrefresh" href="/story">
+						<a class="btn-main btn-main--dark barba--fromtimeline js--preventrefresh js-ga-tracking" href="/story" data-gt="LinkFromTimeline">
 							Go Back
 						</a>
 						<h2 class="intro__text-date"><span class="intro__text-blur">S</span><span class="intro__text-blur">T</span><span class="intro__text-blur">O</span><span class="intro__text-blur">R</span><span class="intro__text-blur">Y</span></h2>
@@ -65,7 +65,7 @@
 				<div class="col-md-12 text-center">
 					<h1 class="memories__title text-center">Our Memories</h1>
 					<div class="hr hr--short"></div>
-					<a class="btn-main" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank"><i class="fa fa-instagram"></i> #choPLUSi</a>
+					<a class="btn-main js-ga-tracking" href="https://www.instagram.com/explore/tags/choplusi/" target="_blank" data-gt="LinkHashTimeline"><i class="fa fa-instagram"></i> #choPLUSi</a>
 				</div>
 				<div class="container">
 					<div class="memories-gallery">

@@ -15,7 +15,7 @@
 						<img class="intro__text-icon" src="/img/rsvp-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">JOIN US</h2>
-						<a class="typeform-share button btn-main" href="https://ryanchoi3.typeform.com/to/cg4TRc" data-mode="popup" target="_blank">RSVP</a>
+						<a class="typeform-share button btn-main js-ga-tracking" href="https://ryanchoi3.typeform.com/to/cg4TRc" data-mode="popup" target="_blank" data-gt="LinkRSVPForm">RSVP</a>
 					</div>
 				</div>
 			</div>

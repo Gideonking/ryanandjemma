@@ -15,7 +15,7 @@
 						<img class="intro__text-icon js-transition-fadeout" src="/img/story-icon.svg" alt="">
 						<h2 class="intro__text-name js-transition-fadeout">RYAN</h2>
 						<h2 class="intro__text-date"><span class="intro__text-blur">S</span><span class="intro__text-blur">T</span><span class="intro__text-blur">O</span><span class="intro__text-blur">R</span><span class="intro__text-blur">Y</span></h2>
-						<a class="btn-main barba--totimeline js--preventrefresh js-transition-fadeout" href="/story/timeline">
+						<a class="btn-main barba--totimeline js--preventrefresh js-transition-fadeout js-ga-tracking" href="/story/timeline" data-gt="LinkToTimeline">
 							See Our Timeline
 						</a>
 					</div>

@@ -15,7 +15,7 @@
 						<img class="intro__text-icon" src="/img/gift-icon.svg" alt="">
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">Thank You</h2>
-						<a class="btn-main" href="https://www.blueprintregistry.com/registry/jemmaryan" target="_blank">
+						<a class="btn-main js-ga-tracking" href="https://www.blueprintregistry.com/registry/jemmaryan" target="_blank" data-gt="LinkBlueRegistry">
 							Visit Our Registry
 						</a>
 					</div>

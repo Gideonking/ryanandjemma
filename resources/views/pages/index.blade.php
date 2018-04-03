@@ -16,6 +16,7 @@
 						<h2 class="intro__text-name">RYAN</h2>
 						<h2 class="intro__text-date">06.02.2018</h2>
 						<p class="intro__text-guest">Be Our Guest</p>
+						<p class="intro__text-info">P.S. Please RSVP by May 2nd</p>
 					</div>
 				</div>
 			</div>

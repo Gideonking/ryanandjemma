@@ -1321,6 +1321,17 @@ $(function () {
 			mobileNavClose();
 		}
 	});
+
+	$('body').on('click', '.js-ga-tracking', function () {
+		var whichBtn = $(this).data('gt');
+		console.log(whichBtn);
+
+		gtag('event', 'buttons', {
+			'event_category': whichBtn,
+			'event_label': 'ghost',
+			'value': whichBtn
+		});
+	});
 });
 
 function barbaAllIntro(color) {
